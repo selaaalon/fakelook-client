@@ -11,7 +11,7 @@
     <a href="">Forgot password?</a>
     <input type="checkbox"  name="remember" value="rememberMe" [(ngModel)]="rememberMe">
     <label for="remember">Remember me</label><br>
-    <button (click)="submit()">submit</button>
+    <button (click)="login()">Login</button>
     <div *ngIf="existUser">I found you!</div>
 
     <button (click)="signup()">signup</button>

@@ -19,14 +19,14 @@ export class LoginComponent implements OnInit {
   constructor(private authService : AuthService, private router : Router) { }
 
   ngOnInit(): void {
-    this.getUsers()
+    this.getUsers();
   }
 
   getUsers() {
     this.authService.getAllUsers()
       .subscribe((users)=> {
         this.usersArray = users;
-        // console.log(users);
+        console.log(users);
       },
 
       (error) => console.log(error));
@@ -39,15 +39,25 @@ export class LoginComponent implements OnInit {
     return false;
   }
 
-  submit(){
-    for (let index = 0; index < this.usersArray.length; index++) {
-      const user = this.usersArray[index];
-      if(this.validateUser(user)) {
-        this.existUser = true;
-        return;
-      }
-    }
-    this.existUser = false;
+  login(){
+    let user = {userName : this.name, password : this.password};
+    this.authService.login(user).subscribe((res) => {
+          this.setToken(res.token);
+          console.log("logged to the user");
+          console.log(res.token);
+          this.name = "";
+          this.password = "";
+        }, 
+        (error) => {console.log(error)});
+
+  }
+
+  private getToken(): string | null {
+    return sessionStorage.getItem('token');
+  }
+  
+  private setToken(token: string): void {
+    sessionStorage.setItem('token', token);
   }
 
   signup(){
