@@ -1,1 +1,4 @@
 <p>timeline-view works!</p>
+<!-- <div *ngIf="postsArray.length > 0"> -->
+    <app-post [post]="postsArray[i]" *ngFor="let post of postsArray; let i = index"></app-post>
+<!-- </div> -->

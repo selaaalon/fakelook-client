@@ -1,9 +1,10 @@
 export interface IPost {
     id? : number,
     description? : string,
-    imageSource : string,
-    xPos : number,
-    yPos : number,
-    zPos : number,
-    date? : Date
+    imageSorce : string,
+    x_position : number,
+    y_position : number,
+    z_position : number,
+    date? : Date,
+    userId? : number
 }

@@ -18,6 +18,11 @@ export class AuthService {
     return this.http.get<IUser[]>(this.usersUrl);
   }
 
+  getUser(id : number){
+    let currentUrl = this.usersUrl + "/" + id;
+    return this.http.get<IUser>(currentUrl);
+  }
+
   login(user : IUser){
     const currentUrl = `${this.usersUrl}/login`;
     return this.http.post<any>(currentUrl, user);

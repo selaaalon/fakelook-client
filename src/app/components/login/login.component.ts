@@ -42,15 +42,15 @@ export class LoginComponent implements OnInit {
     return false;
   }
 
-//   parseJwt (token : string) {
-//     var base64Url = token.split('.')[1];
-//     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-//     var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-//         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-//     }).join(''));
+  // parseJwt (token : string) {
+  //   var base64Url = token.split('.')[1];
+  //   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  //   var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+  //       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  //   }).join(''));
 
-//     return JSON.parse(jsonPayload);
-//    }
+  //   return JSON.parse(jsonPayload)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+  //  }
 
   login(){
     this.error = "";
@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
           this.setToken(res.token);
           console.log("logged to the user");
           console.log(res.token);
+          // console.log(this.parseJwt(res.token));
           this.router.navigate(["/main-page"]);
           // console.log(this.parseJwt(res.token));
         }, 

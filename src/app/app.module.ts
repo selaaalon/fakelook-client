@@ -12,6 +12,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
 import { TimelineViewComponent } from './components/timeline-view/timeline-view.component';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TimelineViewComponent } from './components/timeline-view/timeline-view.
     ForgotPasswordComponent,
     MainPageComponent,
     MapViewComponent,
-    TimelineViewComponent
+    TimelineViewComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
