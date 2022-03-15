@@ -20,14 +20,6 @@ export class AuthService {
 
   login(user : IUser){
     const currentUrl = `${this.usersUrl}/login`;
-    // this.subs.push(
-    // return this.http.post<any>(currentUrl, user).subscribe((res) => {
-    //     this.setToken(res.token);
-    //     console.log("logged to the user");
-    //     console.log(res.token);
-    //   }, 
-    //   (error) => {console.log(error)});
-    // );
     return this.http.post<any>(currentUrl, user);
   }
 
@@ -38,15 +30,13 @@ export class AuthService {
     return this.http.post<IUser>(this.usersUrl, newUser, httpOptions);
   }
 
- 
+  changePassword(newPassword : string){
+    // const currentUrl = `${this.usersUrl}/login`;
+    let user = {}
+    return this.http.put<any>(this.usersUrl, user);
+  }
 
-  // login(user: IUser): void {
-  //   const currentUrl = `${this.usersUrl}Auth/Login`;
-  //   this.subs.push(
-  //     this.http.post<any>(currentUrl, user).subscribe((res) => {
-  //       this.setToken(res.token);
-  //       this.router.navigateByUrl('/Secret');
-  //     })
-  //   );
-  // }
+  editUser(userName : string, password : string){
+    return this.http.patch(this.usersUrl, {userName, password});
+  }
 }

@@ -8,11 +8,19 @@
         <label for="Password">Password: </label>
         <input type="password" [(ngModel)]="password">
     </div>
-    <a href="">Forgot password?</a>
-    <input type="checkbox"  name="remember" value="rememberMe" [(ngModel)]="rememberMe">
-    <label for="remember">Remember me</label><br>
-    <button (click)="login()">Login</button>
-    <div *ngIf="existUser">I found you!</div>
-
-    <button (click)="signup()">signup</button>
+    <div>
+        <a routerLink="/forgot-password" routerLinkActive="active">Forgot password?</a>
+        <input type="checkbox"  name="remember" value="rememberMe" [(ngModel)]="rememberMe">
+        <label for="remember">Remember me</label>
+    </div>
+    <div>
+        <button (click)="login()">Login</button>
+        <button (click)="signup()">Signup</button>
+        <div *ngIf="existUser">I found you!</div>
+        <div *ngIf="missingUserName">You must enter userName!</div>
+        <div *ngIf="missingPassword">You must enter password!</div>
+        <div>{{error}}</div>
+        
+    </div>
+    
 </div>

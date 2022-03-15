@@ -8,12 +8,20 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './components/signup/signup.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { MapViewComponent } from './components/map-view/map-view.component';
+import { TimelineViewComponent } from './components/timeline-view/timeline-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ForgotPasswordComponent,
+    MainPageComponent,
+    MapViewComponent,
+    TimelineViewComponent
   ],
   imports: [
     BrowserModule,

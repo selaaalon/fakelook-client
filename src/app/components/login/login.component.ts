@@ -15,6 +15,10 @@ export class LoginComponent implements OnInit {
   password = "";
   existUser = false;
   rememberMe = false;
+  missingUserName = false;
+  missingPassword = false;
+  error = "";
+
 
   constructor(private authService : AuthService, private router : Router) { }
 
@@ -28,7 +32,6 @@ export class LoginComponent implements OnInit {
         this.usersArray = users;
         console.log(users);
       },
-
       (error) => console.log(error));
   }
 
@@ -39,29 +42,77 @@ export class LoginComponent implements OnInit {
     return false;
   }
 
+//   parseJwt (token : string) {
+//     var base64Url = token.split('.')[1];
+//     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//     var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+//         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//     }).join(''));
+
+//     return JSON.parse(jsonPayload);
+//    }
+
   login(){
+    this.error = "";
+    if(this.checkMissingFields()){
+      return;
+    }
     let user = {userName : this.name, password : this.password};
     this.authService.login(user).subscribe((res) => {
           this.setToken(res.token);
           console.log("logged to the user");
           console.log(res.token);
-          this.name = "";
-          this.password = "";
+          this.router.navigate(["/main-page"]);
+          // console.log(this.parseJwt(res.token));
         }, 
-        (error) => {console.log(error)});
-
+        (error) => {
+          this.error = error.error.detail;
+          // console.log(error.error.detail)
+        });
+        this.name = "";
+        this.password = "";
   }
 
   private getToken(): string | null {
     return sessionStorage.getItem('token');
   }
-  
+
   private setToken(token: string): void {
     sessionStorage.setItem('token', token);
   }
 
+  forgotPassword(){
+    this.router.navigate(["/forgot-password"]);
+  }
+
+  checkMissingFields(){
+    let isMissing = false;
+    if(!this.name){
+      this.missingUserName = true;
+      isMissing = true;
+    }
+    else this.missingUserName = false;
+    if(!this.password){
+      this.missingPassword = true;
+      isMissing = true;
+    }
+    else this.missingPassword = false;
+    return isMissing;
+  }
+
   signup(){
-    this.router.navigate(["/signup-component"]);
+    // if(!this.name){
+    //   this.missingUserName = true;
+    // }
+    // else this.missingUserName = false;
+    // if(!this.password){
+    //   this.missingPassword = true;
+    // }
+    // else this.missingPassword = false;
+    // if(this.checkMissingFields()){
+    //   return;
+    // }
+    this.router.navigate(["/signup"]);
   }
 
 }
