@@ -31,7 +31,7 @@ export class AuthService {
     return this.http.post<any>(currentUrl, user);
   }
 
-  addUser(newUser : IUser) : Observable<IUser> {
+  signup(newUser : IUser) : Observable<IUser> {
     let httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };

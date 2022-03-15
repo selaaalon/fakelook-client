@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class SignupComponent implements OnInit {
   address = "";
   job = "";
 
-  constructor(private authService : AuthService) { }
+  constructor(private authService : AuthService, private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -32,11 +33,27 @@ export class SignupComponent implements OnInit {
     return true;
   }
 
+  resetForm() {
+    this.authPassword = true;
+    this.email = "";
+    this.fullName = "";
+    this.userName = "";
+    this.password1 = "";
+    this.password2 = "";
+    this.birthDate = undefined;
+    this.address = "";
+    this.job = "";
+  }
+
   submit(){
     if(this.validatePassword()){
-      let newUser = {userName : this.userName, password : this.password1, address : this.address}
-      this.authService.addUser(newUser).subscribe(()=>{
+      let newUser = {email : this.email ,name: this.fullName ,
+        userName : this.userName, password : this.password1, 
+        BirthDate : this.birthDate, address : this.address, job : this.job}
+        
+      this.authService.signup(newUser).subscribe(()=>{
         console.log("we did it")
+        this.resetForm();
       });
     }
 
