@@ -20,13 +20,28 @@ export class TimelineViewComponent implements OnInit {
 
   getAllPosts(){
     this.postService.getAllPosts(sessionStorage.getItem('token')!).subscribe((posts)=>{
-      this.postsArray = posts.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
+      // this.postsArray = posts.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
+      this.postsArray = posts;
+      this.sortArray();
     },
-    (error) => {this.router.navigate([""])});
+    (error) => {
+      console.log("stuck");
+      console.log(error);
+      // this.router.navigate([""])
+    });
+  }
+
+  sortArray(){
+    this.postsArray.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
   }
 
   ngOnInit(): void {
     this.getAllPosts();
+    
+    this.postService.createdNewPost.subscribe((item)=>{
+      this.postsArray.push(item);
+      this.sortArray();
+    });
   }
 
 }

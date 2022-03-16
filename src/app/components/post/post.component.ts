@@ -18,7 +18,7 @@ export class PostComponent implements OnInit {
   yPos = 0;
   zPos = 0;
   date = new Date();
-  userId = 0;
+  userId? = 0;
   
 
 

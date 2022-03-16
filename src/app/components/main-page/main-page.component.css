@@ -4,6 +4,34 @@
     justify-content: space-around;
 }
 
+.nav-bar{
+    /* background-color: whitesmoke; */
+    padding: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 5vw;
+}
+
+a{
+    text-decoration: none;
+    font-size: smaller;
+    color: gray;  
+    border: 1px solid transparent;
+}
+
+a:hover{
+    color: black;
+    border-bottom: 1px solid black;
+    transition: 1s linear; 
+}
+
 
 /* .filters{
     

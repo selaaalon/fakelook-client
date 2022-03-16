@@ -52,7 +52,6 @@ export class SignupComponent implements OnInit {
         BirthDate : this.birthDate, address : this.address, job : this.job}
         
       this.authService.signup(newUser).subscribe(()=>{
-        console.log("we did it")
         this.resetForm();
       });
     }

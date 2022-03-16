@@ -6,5 +6,5 @@ export interface IPost {
     y_position : number,
     z_position : number,
     date : Date,
-    userId : number
+    userId? : number
 }

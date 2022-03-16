@@ -11,10 +11,6 @@ export class MainPageComponent implements OnInit {
 
   constructor() { }
 
-  addPost(){
-
-  }
-
   ngOnInit(): void {
   }
 
