@@ -4,6 +4,10 @@
     justify-content: space-around;
 }
 
+.filters{
+    margin-top: 10vh;
+}
+
 .nav-bar{
     /* background-color: whitesmoke; */
     padding: 7px;
@@ -21,15 +25,15 @@
 
 a{
     text-decoration: none;
-    font-size: smaller;
+    font-size: medium;
     color: gray;  
-    border: 1px solid transparent;
+    /* border-bottom: 1px solid black; */
 }
 
 a:hover{
     color: black;
-    border-bottom: 1px solid black;
-    transition: 1s linear; 
+    /* border-bottom: 1px solid black;
+    transition: 1s linear;  */
 }
 
 
