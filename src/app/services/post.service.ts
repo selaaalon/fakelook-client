@@ -12,7 +12,11 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getAllPosts(): Observable<IPost[]> {
-    return this.http.get<IPost[]>(this.postsUrl);
+  getAllPosts(token : string): Observable<IPost[]> {
+    let httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}),
+      
+    };
+    return this.http.get<IPost[]>(this.postsUrl, httpOptions);
   }
 }

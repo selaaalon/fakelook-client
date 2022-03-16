@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IPost } from 'src/app/models/IPost';
 import { IUser } from 'src/app/models/IUser';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,19 +16,13 @@ export class TimelineViewComponent implements OnInit {
 
   
 
-  constructor(private postService : PostService, private authService : AuthService) { }
+  constructor(private postService : PostService, private authService : AuthService, private router : Router) { }
 
   getAllPosts(){
-    this.postService.getAllPosts().subscribe((posts)=>{
+    this.postService.getAllPosts(sessionStorage.getItem('token')!).subscribe((posts)=>{
       this.postsArray = posts.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
-    })
-  }
-
-  getPostWriter(id : number) : string{
-    this.authService.getUser(id).subscribe((user) => {
-      return user.userName;
-    })
-    return "pro"
+    },
+    (error) => {this.router.navigate([""])});
   }
 
   ngOnInit(): void {

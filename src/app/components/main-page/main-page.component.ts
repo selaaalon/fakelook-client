@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
+  popupAddPost = false;
+
   constructor() { }
+
+  addPost(){
+
+  }
 
   ngOnInit(): void {
   }
