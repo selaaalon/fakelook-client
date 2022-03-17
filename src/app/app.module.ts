@@ -14,6 +14,8 @@ import { MapViewComponent } from './components/map-view/map-view.component';
 import { TimelineViewComponent } from './components/timeline-view/timeline-view.component';
 import { PostComponent } from './components/post/post.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { MapComponent } from './components/map/map.component';
+import { MapModule } from './modules/map.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    MapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
