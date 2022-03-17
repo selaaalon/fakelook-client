@@ -1,0 +1,20 @@
+<ac-map #map>
+    <ac-layer
+      *ngIf="entities$"
+      acFor="let entity of entities$"
+      [context]="this"
+      [debug]="true"
+    >
+      <ac-html-desc props="{position: entity.location, show: true}">
+        <ng-template let-entity>
+          <div class="map-post" (click)="showFullPost(entity)">
+            <div>
+              <img src="{{ entity.imageSorce }}" />
+            </div>
+            <div class="post-description">{{ entity.description }}</div>
+          </div>
+        </ng-template>
+      </ac-html-desc>
+    </ac-layer>
+  </ac-map>
+  

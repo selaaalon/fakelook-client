@@ -40,7 +40,7 @@ export class AddPostComponent implements OnInit {
   }
 
   addPost(){
-    let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), x_position : 0, y_position : 0, z_position : 0}
+    let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), x_Position : 0, y_Position : 0, z_Position : 0}
     this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
       console.log(newPost);
       this.postService.createdNewPost.next(newPost);
