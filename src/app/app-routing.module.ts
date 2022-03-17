@@ -8,18 +8,18 @@ import { SignupComponent } from './components/signup/signup.component';
 import { TimelineViewComponent } from './components/timeline-view/timeline-view.component';
 
 const routes: Routes = [
-  // {path: '', component: LoginComponent},
-  // {path: 'signup', component: SignupComponent},
-  // {path: 'forgot-password', component: ForgotPasswordComponent},
-  // {path: '', component: MainPageComponent, children: [
-  //   {path: 'map', component: MapViewComponent},
-  //   {path: 'timeline', component: TimelineViewComponent},
-  //   {path: '', redirectTo: 'timeline', pathMatch: 'full'},
-  // ]}
+  {path: '', component: LoginComponent},
+  {path: 'signup', component: SignupComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent},
+  {path: 'main-page', component: MainPageComponent, children: [
+    {path: 'map', component: MapViewComponent},
+    {path: 'timeline', component: TimelineViewComponent},
+    {path: '', redirectTo: 'timeline', pathMatch: 'full'},
+  ]}
 
-  {path: 'map', component: MapViewComponent},
-  {path: 'timeline', component: TimelineViewComponent},
-  {path: '', redirectTo: 'timeline', pathMatch: 'full'}
+  // {path: 'map', component: MapViewComponent},
+  // {path: 'timeline', component: TimelineViewComponent},
+  // {path: '', redirectTo: 'timeline', pathMatch: 'full'}
 ];
 
 @NgModule({

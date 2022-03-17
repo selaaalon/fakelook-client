@@ -1,22 +1,19 @@
-<div class="body">
-  <div class="filters">
-    <button (click)="popupAddPost = !popupAddPost">Add post</button>
-    <app-add-post *ngIf="popupAddPost"></app-add-post>
-  </div>
+<div class="main-container">
+  <app-side-bar></app-side-bar>
   
   <div class="router">
     <!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
     <div class="nav-bar">
       <nav class="row">
-          <a routerLink="/map" routerLinkActive="active">Map view </a>
-          <a routerLink="/timeline" routerLinkActive="active">Timeline view</a>
+          <a routerLink="/main-page/map" routerLinkActive="active">Map view </a>
+          <a routerLink="/main-page/timeline" routerLinkActive="active">Timeline view</a>
         </nav>
     </div>
     <!-- The routed views render in the <router-outlet>-->
     <div class="router-outlet-container">
       <router-outlet></router-outlet>
     </div>
-    
+    <!-- <app-map></app-map> -->
   </div>
 </div>
 

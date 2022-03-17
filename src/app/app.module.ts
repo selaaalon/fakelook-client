@@ -16,6 +16,8 @@ import { PostComponent } from './components/post/post.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { MapComponent } from './components/map/map.component';
 import { MapModule } from './modules/map.module';
+import { PopupPostComponent } from './components/popup-post/popup-post.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { MapModule } from './modules/map.module';
     MapViewComponent,
     TimelineViewComponent,
     PostComponent,
-    AddPostComponent
+    AddPostComponent,
+    PopupPostComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,

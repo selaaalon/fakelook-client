@@ -1,0 +1,13 @@
+
+<div class="main-container">
+    <div class="publish-and-friends">
+        <button (click)="popupAddPost = !popupAddPost">Add post</button>
+        <div>Friends!</div>
+        <app-add-post (addedPost)="addPost($event)" *ngIf="popupAddPost"></app-add-post>
+    </div>
+
+<div class="filters">
+
+</div>
+
+</div>

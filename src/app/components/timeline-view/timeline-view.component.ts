@@ -13,10 +13,20 @@ import { PostService } from 'src/app/services/post.service';
 export class TimelineViewComponent implements OnInit {
 
   postsArray = new Array<IPost>();
-
+  showDialog = false;
+  selectedPost!: IPost;
   
 
   constructor(private postService : PostService, private authService : AuthService, private router : Router) { }
+
+  ngOnInit(): void {
+    this.getAllPosts();
+    
+    this.postService.createdNewPost.subscribe((item)=>{
+      this.postsArray.push(item);
+      this.sortArray();
+    });
+  }
 
   getAllPosts(){
     this.postService.getAllPosts(sessionStorage.getItem('token')!).subscribe((posts)=>{
@@ -27,21 +37,21 @@ export class TimelineViewComponent implements OnInit {
     (error) => {
       console.log("stuck");
       console.log(error);
-      // this.router.navigate([""])
+      this.router.navigate([""])
     });
   }
 
   sortArray(){
-    this.postsArray.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
+    this.postsArray.sort((p1, p2)=>new Date(p1.date) > new Date(p2.date) ? -1 : 1);
   }
 
-  ngOnInit(): void {
-    this.getAllPosts();
-    
-    this.postService.createdNewPost.subscribe((item)=>{
-      this.postsArray.push(item);
-      this.sortArray();
-    });
+  showFullPost(post: IPost): void {
+    this.showDialog = true;
+    this.selectedPost = post;
+  }
+
+  closeDialog(): void {
+    this.showDialog = false;
   }
 
 }

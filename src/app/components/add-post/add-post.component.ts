@@ -12,6 +12,10 @@ export class AddPostComponent implements OnInit {
   imgSrc = "";
   tagPeople = "";
   tags = "";
+  desc = "";
+  // xPos = 0;
+  // yPos = 0;
+  // zPos = 0;
 
   @Output() addedPost = new EventEmitter<boolean>();
   
@@ -20,12 +24,16 @@ export class AddPostComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // addedPost(){
-
-  // }
-
-  findLocation(){
-
+  addPostWithLocation(){
+    navigator.geolocation.getCurrentPosition(
+      (data) => {
+        const { latitude, longitude } = data.coords;
+        const position = Cesium.Cartesian3.fromDegrees(longitude, latitude);
+        this.addPost(position.x, position.y, position.z);
+      },
+      (err) => {
+        console.log(err);
+      });
   }
 
   addImg(event : any){
@@ -39,11 +47,14 @@ export class AddPostComponent implements OnInit {
     }
   }
 
-  addPost(){
-    let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), x_Position : 0, y_Position : 0, z_Position : 0}
+  addPost(x : number, y : number, z : number){
+    let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), 
+      x_Position : x, y_Position : y, z_Position : z, description : this.desc}
+    // console.log(newPost);
     this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
       console.log(newPost);
       this.postService.createdNewPost.next(newPost);
+      this.addedPost.emit(true);
     },
     (error) => console.log(error))
   }

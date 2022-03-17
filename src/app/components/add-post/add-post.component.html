@@ -1,6 +1,9 @@
-<div class="body">
+<div class="main-container">
     <label for="img">Add image : </label>
     <input name="img" type="file" (change)="addImg($event)">
+
+    <label for="addDesc">Description : </label>
+    <input type="text" name="addDesc" [(ngModel)]="desc">
 
     <label for="tagPeople">Tag people : </label>
     <input type="text" name="tagPeople" [(ngModel)]="tagPeople">
@@ -8,7 +11,7 @@
     <label for="tags">Add tags : </label>
     <input type="text" name="tags" [(ngModel)]="tags">
 
-    <button (click)="addPost()">Add me!</button>
+    <button (click)="addPostWithLocation()">Add me!</button>
 </div>
 
 

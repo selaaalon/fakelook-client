@@ -42,7 +42,9 @@ export class MapComponent implements OnInit {
   showDialog = false;
   Cesium = Cesium;
   ngOnInit(): void {
-    this.initList();
+    // this.initList();
+    this.initPostsOnMap();
+
 //     this.entities$ = this.postService.getAllPosts(sessionStorage.getItem('token')!).pipe(
 //       map((posts) => {
 //         let post = {} as IPost;
