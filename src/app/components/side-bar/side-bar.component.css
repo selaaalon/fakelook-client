@@ -4,6 +4,14 @@
     /* align-items: center; */
     text-align: center;
     row-gap: 10px;
+    position: fixed;
+    left: 0;
+    height: 100%;
+    width: 20%;
+    /* z-index: 1; */
+    /* background-color: aliceblue; */
+    background-color: white;
+    /* border-right:solid 0.5em rgb(206, 205, 205) ; */
 }
 
 .publish-and-friends{
@@ -25,7 +33,7 @@ app-add-post{
 }
 
 input{
-    width: 30%;
+    width: 20%;
 }
 
 .filters{

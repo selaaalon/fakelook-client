@@ -1,26 +1,32 @@
 
-<div class="main-container">
-    <div class="publish-and-friends">
-        <button (click)="popupAddPost = !popupAddPost">Add post</button>
-        <div>Friends!</div>
-        <app-add-post (addedPost)="addPost($event)" *ngIf="popupAddPost"></app-add-post>
-    </div>
+<div class="main-container" (mouseover)="hover = true" (mouseout)="hover = false">
 
-    <div class="filters" *ngIf="!popupAddPost">
-        <h4>Filters:</h4>
-        <div>
-            Date from : <input type="date"> Date to : <input type="date">
-        </div>
-        <div>
-            Publishers : <input type="text">
-        </div>
-        <div>
-            Image Tags : <input type="text">
-        </div>
-        <div>
-            Tag Users : <input type="text">
-        </div>
+    <!-- <div *ngIf="!hover"></div> -->
 
-    </div>
+    <!-- <div *ngIf="!hover"> -->
+        <div class="publish-and-friends">
+            <button (click)="popupAddPost = !popupAddPost">Add post</button>
+            <div>Friends!</div>
+            <app-add-post (addedPost)="addPost($event)" *ngIf="popupAddPost"></app-add-post>
+        </div>
+    
+        <div class="filters" *ngIf="!popupAddPost">
+            <h4>Filters:</h4>
+            <div>
+                Date from : <input type="date"> Date to : <input type="date">
+            </div>
+            <div>
+                Publishers : <input type="text">
+            </div>
+            <div>
+                Image Tags : <input type="text">
+            </div>
+            <div>
+                Tag Users : <input type="text">
+            </div>
+    
+        </div>
+    <!-- </div> -->
+    
 
 </div>

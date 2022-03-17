@@ -77,15 +77,15 @@ export class MapComponent implements OnInit {
   initPostsOnMap() {
     this.entities$ = this.postService.getAllPosts(sessionStorage.getItem('token')!).pipe(
       map((posts) => {
-        let post = {} as IPost
-        post.id=15;
-        post.description=""
-        post.imageSorce=""
-        post.userId=1
-        post.x_Position=4439646.379032415
-        post.y_Position = 3109874.6318978276;
-        post.z_Position = 3350106.354895249
-        posts.push(post)
+        // let post = {} as IPost
+        // post.id=15;
+        // post.description=""
+        // post.imageSorce=""
+        // post.userId=1
+        // post.x_Position=4439646.379032415
+        // post.y_Position = 3109874.6318978276;
+        // post.z_Position = 3350106.354895249
+        // posts.push(post)
                 return posts.map((post: IPost) => ({
           id: post.id,
           actionType: ActionType.ADD_UPDATE,
@@ -106,6 +106,7 @@ export class MapComponent implements OnInit {
   initList() {
     this.initPostsOnMap();
   }
+  
   showFullPost(post: IPost): void {
     this.showDialog = true;
     this.selectedPost = post;

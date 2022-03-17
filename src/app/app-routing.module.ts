@@ -14,12 +14,14 @@ const routes: Routes = [
   {path: 'main-page', component: MainPageComponent, children: [
     {path: 'map', component: MapViewComponent},
     {path: 'timeline', component: TimelineViewComponent},
-    {path: '', redirectTo: 'timeline', pathMatch: 'full'},
+    {path: '', redirectTo: 'map', pathMatch: 'full'},
   ]}
 
-  // {path: 'map', component: MapViewComponent},
+  // {path: '', component: MapViewComponent},
   // {path: 'timeline', component: TimelineViewComponent},
   // {path: '', redirectTo: 'timeline', pathMatch: 'full'}
+
+
 ];
 
 @NgModule({
