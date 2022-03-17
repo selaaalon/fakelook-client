@@ -13,9 +13,6 @@ export class AddPostComponent implements OnInit {
   tagPeople = "";
   tags = "";
   desc = "";
-  // xPos = 0;
-  // yPos = 0;
-  // zPos = 0;
 
   @Output() addedPost = new EventEmitter<boolean>();
   

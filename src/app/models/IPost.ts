@@ -15,7 +15,6 @@ export interface IPost {
     taggedUsers? : IUser[],
     tags? : ITag[],
     comments? : IComment[],
-    // location : 
     date : Date,
     userId? : number
 }

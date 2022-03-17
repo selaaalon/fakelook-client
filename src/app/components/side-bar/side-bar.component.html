@@ -6,8 +6,21 @@
         <app-add-post (addedPost)="addPost($event)" *ngIf="popupAddPost"></app-add-post>
     </div>
 
-<div class="filters">
+    <div class="filters" *ngIf="!popupAddPost">
+        <h4>Filters:</h4>
+        <div>
+            Date from : <input type="date"> Date to : <input type="date">
+        </div>
+        <div>
+            Publishers : <input type="text">
+        </div>
+        <div>
+            Image Tags : <input type="text">
+        </div>
+        <div>
+            Tag Users : <input type="text">
+        </div>
 
-</div>
+    </div>
 
 </div>

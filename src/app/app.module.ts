@@ -18,6 +18,8 @@ import { MapComponent } from './components/map/map.component';
 import { MapModule } from './modules/map.module';
 import { PopupPostComponent } from './components/popup-post/popup-post.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
+// import { TagPeopleComponent } from './components/tag-people/tag-people.component';
+// import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
     PostComponent,
     AddPostComponent,
     PopupPostComponent,
-    SideBarComponent
+    SideBarComponent,
+    // TagPeopleComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
     FormsModule,
     HttpClientModule,
     MapModule
+    // MatAutocompleteSelectedEvent
   ],
   providers: [],
   bootstrap: [AppComponent]
