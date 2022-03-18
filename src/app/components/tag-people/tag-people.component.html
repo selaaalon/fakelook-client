@@ -1,6 +1,6 @@
 
-<mat-form-field class="example-chip-list" appearance="fill">
-    <mat-label>Tag Users</mat-label>
+<mat-form-field class="example-chip-list" appearance="legacy">
+    <mat-label>Tagged Users</mat-label>
     <mat-chip-list #chipList aria-label="User selection">
       <mat-chip
         *ngFor="let user of taggedUsers"
@@ -11,7 +11,7 @@
         </button>
       </mat-chip>
       <input
-        placeholder="Tag User..."
+        placeholder="Tagged Users..."
         #fruitInput
         [formControl]="usersCtrl"
         [matAutocomplete]="auto"

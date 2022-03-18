@@ -27,6 +27,8 @@ import { AddTagsComponent } from './components/add-tags/add-tags.component';
 import { DateFilterComponent } from './components/date-filter/date-filter.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { AddDescriptionComponent } from './components/add-description/add-description.component';
+import { MatInputModule } from '@angular/material/input'
 
 
 
@@ -45,7 +47,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     SideBarComponent,
     TagPeopleComponent,
     AddTagsComponent,
-    DateFilterComponent
+    DateFilterComponent,
+    AddDescriptionComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatIconModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -14,15 +14,15 @@ import { TagsService } from 'src/app/services/tags.service';
 })
 export class AddTagsComponent implements OnInit {
 
-  
-
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagsCtrl = new FormControl();
   filteredTags = new Observable<string[]>();
-  tags: string[] = [];
+  selectedTags: string[] = [];
   allTags: string[] = [];
 
-  @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
+  @Output() addTagsToPostEvent = new EventEmitter<string>();
+
+  @ViewChild('tagsInput') tagsInput!: ElementRef<HTMLInputElement>;
 
   constructor(private tagService : TagsService) {
     // this.filteredTags = this.tagsCtrl.valueChanges.pipe(
@@ -43,6 +43,14 @@ export class AddTagsComponent implements OnInit {
     })
   }
 
+  addTagsToPost(allTagsToPost: string[]) {
+    let tagsToPostConcat = "";
+    allTagsToPost.forEach((tag) => {
+      tagsToPostConcat = tagsToPostConcat + ", " + tag;
+    })
+    this.addTagsToPostEvent.emit(tagsToPostConcat.trim());
+  }
+
   removeTags(value : string){
     let deleteIndex = this.allTags.indexOf(value) 
     this.allTags.splice(deleteIndex,1);
@@ -51,34 +59,42 @@ export class AddTagsComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    // Add our fruit
-    if (value && this.tags.indexOf(value) == -1) {
-      this.removeTags(value);
-      this.tags.push(value);
-    }
-
+    // // Add our tag 
+    // if (value) {
+    //   // this.removeTags(value);
+    //   this.selectedTags.push(value);
+    // }
+    this.selectedTags.push(value);
     // Clear the input value
+    
     event.chipInput!.clear();
+    this.tagsInput.nativeElement.value = '';
+    
 
     this.tagsCtrl.setValue(null);
-    console.log(this.tags);
+    this.addTagsToPost(this.selectedTags);
+    // console.log(this.tags);
   }
 
   remove(tag: string): void {
-    const index = this.tags.indexOf(tag);
+    const index = this.selectedTags.indexOf(tag);
 
     if (index >= 0) {
-      this.tags.splice(index, 1);
+      this.selectedTags.splice(index, 1);
       this.allTags.push(tag);
+      this.addTagsToPost(this.selectedTags);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    let value = event.option.viewValue;
-    if(this.tags.indexOf(value) == -1){
-      this.tags.push(event.option.viewValue);
-    }
-    this.fruitInput.nativeElement.value = '';
+    // let value = event.option.viewValue;
+    // if(this.selectedTags.indexOf(value) == -1){
+    //   this.selectedTags.push(event.option.viewValue);
+    //   this.addTagsToPost(this.selectedTags);
+    // }
+    this.selectedTags.push(event.option.viewValue);
+    this.addTagsToPost(this.selectedTags);
+    this.tagsInput.nativeElement.value = '';
     this.tagsCtrl.setValue(null);
   }
 

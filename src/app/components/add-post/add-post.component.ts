@@ -11,10 +11,12 @@ export class AddPostComponent implements OnInit {
   imgFile? : File;
   imgSrc = "";
   tagPeople = "";
+  // tags :string[] = [];
   tags = "";
   desc = "";
 
   @Output() addedPost = new EventEmitter<boolean>();
+  
   
   constructor(private postService : PostService) { }
 
@@ -44,16 +46,31 @@ export class AddPostComponent implements OnInit {
     }
   }
 
+
+  addDescription(newDescription: string){
+    this.desc = newDescription;
+  }
+
+  addTags(newTags : string){
+    this.tags = newTags;
+  }
+
+  addTaggedUsers(newTaggedUsers : string){
+    this.tagPeople = newTaggedUsers;
+  }
+
   addPost(x : number, y : number, z : number){
+    let tags = {content : this.tags}
     let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), 
-      x_Position : x, y_Position : y, z_Position : z, description : this.desc}
-    // console.log(newPost);
-    this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
-      console.log(newPost);
-      this.postService.createdNewPost.next(newPost);
-      this.addedPost.emit(true);
-    },
-    (error) => console.log(error))
+      x_Position : x, y_Position : y, z_Position : z, description : this.desc, tags : tags, taggedUsers : this.tagPeople}
+    console.log(newPost);
+    this.addedPost.emit(true);
+    // this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
+    //   console.log(newPost);
+    //   this.postService.createdNewPost.next(newPost);
+    //   this.addedPost.emit(true);
+    // },
+    // (error) => console.log(error))
   }
 
 }

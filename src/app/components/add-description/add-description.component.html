@@ -1,0 +1,9 @@
+  <mat-form-field  appearance="legacy">
+    <mat-label>Description</mat-label>
+    <textarea matInput
+              #desc
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5" (change)="addDesc(desc.value)"></textarea>
+  </mat-form-field>

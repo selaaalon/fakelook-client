@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -20,6 +20,8 @@ export class TagPeopleComponent implements OnInit {
   taggedUsers: string[] = [] 
   allUsersNames: string[] = [];
 
+  @Output() addTaggedUsersToPostEvent = new EventEmitter<string>();
+
   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
 
   constructor(private authService : AuthService) {
@@ -38,6 +40,14 @@ export class TagPeopleComponent implements OnInit {
     })
   }
 
+  addTaggedUsersToPost(allTaggedUsers : string[]){
+    let taggedUsersToPostConcat = "";
+    allTaggedUsers.forEach((user) => {
+      taggedUsersToPostConcat = taggedUsersToPostConcat + ", " + user;
+    })
+    this.addTaggedUsersToPostEvent.emit(taggedUsersToPostConcat.trim());
+  }
+
   removeTaggedUser(value : string){
     let deleteIndex = this.allUsersNames.indexOf(value) 
     this.allUsersNames.splice(deleteIndex,1);
@@ -52,6 +62,7 @@ export class TagPeopleComponent implements OnInit {
     if (value && this.allUsersNames.indexOf(value) > -1 && this.taggedUsers.indexOf(value) == -1) {
       this.removeTaggedUser(value);
       this.taggedUsers.push(value);
+      this.addTaggedUsersToPost(this.taggedUsers);
     }
 
     // Clear the input value
@@ -68,6 +79,7 @@ export class TagPeopleComponent implements OnInit {
     if (index >= 0) {
       this.taggedUsers.splice(index, 1);
       this.allUsersNames.push(user);
+      this.addTaggedUsersToPost(this.taggedUsers);
     }
     
   }
@@ -77,6 +89,8 @@ export class TagPeopleComponent implements OnInit {
     if(this.taggedUsers.indexOf(value) == -1){
       this.taggedUsers.push(value);
       this.removeTaggedUser(value);
+      this.addTaggedUsersToPost(this.taggedUsers);
+      console.log(value);
     }
     this.fruitInput.nativeElement.value = '';
     this.usersCtrl.setValue(null);
