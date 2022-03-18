@@ -1,9 +1,6 @@
 
 <div class="main-container" (mouseover)="hover = true" (mouseout)="hover = false">
 
-    <!-- <div *ngIf="!hover"></div> -->
-
-    <!-- <div *ngIf="!hover"> -->
         <div class="publish-and-friends">
             <button (click)="popupAddPost = !popupAddPost">Add post</button>
             <div>Friends!</div>
@@ -12,17 +9,18 @@
     
         <div class="filters" *ngIf="!popupAddPost">
             <h4>Filters:</h4>
-            <div>
-                Date from : <input type="date"> Date to : <input type="date">
-            </div>
+            <app-date-filter></app-date-filter>
+            <!-- <div>
+                From : <input type="date"> To : <input type="date">
+            </div> -->
             <div>
                 Publishers : <input type="text">
             </div>
             <div>
-                Image Tags : <input type="text">
+                <app-add-tags></app-add-tags>
             </div>
             <div>
-                Tag Users : <input type="text">
+                <app-tag-people></app-tag-people>
             </div>
     
         </div>

@@ -1,70 +1,92 @@
-// import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-// import { FormControl } from '@angular/forms';
-// import { map, Observable, startWith } from 'rxjs';
-// import {COMMA, ENTER} from '@angular/cdk/keycodes';
-// import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-// import {MatChipInputEvent} from '@angular/material/chips';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {MatChipInputEvent} from '@angular/material/chips';
+import { AuthService } from 'src/app/services/auth.service';
+import { IUser } from 'src/app/models/IUser';
 
-// @Component({
-//   selector: 'app-tag-people',
-//   templateUrl: './tag-people.component.html',
-//   styleUrls: ['./tag-people.component.css']
-// })
-// export class TagPeopleComponent implements OnInit {
+@Component({
+  selector: 'app-tag-people',
+  templateUrl: './tag-people.component.html',
+  styleUrls: ['./tag-people.component.css']
+})
+export class TagPeopleComponent implements OnInit {
+  
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  usersCtrl = new FormControl();
+  filteredUsers = new Observable<string[]>();
+  taggedUsers: string[] = [] 
+  allUsersNames: string[] = [];
 
-//   // constructor() { }
+  @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
 
-//   ngOnInit(): void {
-//   }
+  constructor(private authService : AuthService) {
+    
+  }
 
-//   separatorKeysCodes: number[] = [ENTER, COMMA];
-//   fruitCtrl = new FormControl();
-//   filteredFruits: Observable<string[]>;
-//   fruits: string[] = ['Lemon'];
-//   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  ngOnInit(): void {
+    this.authService.getAllUsers().subscribe((users) => {
+      users.forEach((user)=>{
+        this.allUsersNames.push(user.name!);
+      })
+      this.filteredUsers = this.usersCtrl.valueChanges.pipe(
+        startWith(null),
+        map((user: string | null) => (user ? this._filter(user) : this.allUsersNames.slice(0, this.allUsersNames.length))),
+      );
+    })
+  }
 
-//   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
+  removeTaggedUser(value : string){
+    let deleteIndex = this.allUsersNames.indexOf(value) 
+    this.allUsersNames.splice(deleteIndex,1);
+  }
 
-//   constructor() {
-//     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-//       startWith(null),
-//       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
-//     );
-//   }
 
-//   add(event: MatChipInputEvent): void {
-//     const value = (event.value || '').trim();
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
 
-//     // Add our fruit
-//     if (value) {
-//       this.fruits.push(value);
-//     }
 
-//     // Clear the input value
-//     event.chipInput!.clear();
+    // Add our fruit
+    if (value && this.allUsersNames.indexOf(value) > -1 && this.taggedUsers.indexOf(value) == -1) {
+      this.removeTaggedUser(value);
+      this.taggedUsers.push(value);
+    }
 
-//     this.fruitCtrl.setValue(null);
-//   }
+    // Clear the input value
+    event.chipInput!.clear();
 
-//   remove(fruit: string): void {
-//     const index = this.fruits.indexOf(fruit);
+    this.usersCtrl.setValue(null);
 
-//     if (index >= 0) {
-//       this.fruits.splice(index, 1);
-//     }
-//   }
+    
+  }
 
-//   selected(event: MatAutocompleteSelectedEvent): void {
-//     this.fruits.push(event.option.viewValue);
-//     this.fruitInput.nativeElement.value = '';
-//     this.fruitCtrl.setValue(null);
-//   }
+  remove(user: string): void {
+    const index = this.taggedUsers.indexOf(user);
 
-//   private _filter(value: string): string[] {
-//     const filterValue = value.toLowerCase();
+    if (index >= 0) {
+      this.taggedUsers.splice(index, 1);
+      this.allUsersNames.push(user);
+    }
+    
+  }
 
-//     return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
-//   }
-// }
+  selected(event: MatAutocompleteSelectedEvent): void {
+    let value = event.option.viewValue
+    if(this.taggedUsers.indexOf(value) == -1){
+      this.taggedUsers.push(value);
+      this.removeTaggedUser(value);
+    }
+    this.fruitInput.nativeElement.value = '';
+    this.usersCtrl.setValue(null);
+  }
 
-// // }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allUsersNames.filter(user => user.toLowerCase().includes(filterValue));
+  }
+}
+

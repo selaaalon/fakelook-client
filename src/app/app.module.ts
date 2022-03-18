@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './components/signup/signup.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -18,8 +18,17 @@ import { MapComponent } from './components/map/map.component';
 import { MapModule } from './modules/map.module';
 import { PopupPostComponent } from './components/popup-post/popup-post.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
-// import { TagPeopleComponent } from './components/tag-people/tag-people.component';
-// import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { TagPeopleComponent } from './components/tag-people/tag-people.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { AddTagsComponent } from './components/add-tags/add-tags.component';
+import { DateFilterComponent } from './components/date-filter/date-filter.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
+
 
 @NgModule({
   declarations: [
@@ -34,7 +43,9 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
     AddPostComponent,
     PopupPostComponent,
     SideBarComponent,
-    // TagPeopleComponent
+    TagPeopleComponent,
+    AddTagsComponent,
+    DateFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -42,8 +53,14 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MapModule
-    // MatAutocompleteSelectedEvent
+    MapModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

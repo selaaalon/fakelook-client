@@ -7,10 +7,10 @@
     position: fixed;
     left: 0;
     height: 100%;
-    width: 20%;
-    /* z-index: 1; */
+    width: 15%;
+    z-index: 1;
     /* background-color: aliceblue; */
-    background-color: white;
+    background-color: whitesmoke;
     /* border-right:solid 0.5em rgb(206, 205, 205) ; */
 }
 
