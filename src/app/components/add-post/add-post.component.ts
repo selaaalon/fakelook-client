@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { IPost } from 'src/app/models/IPost';
+import { ITag } from 'src/app/models/ITag';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -14,6 +16,9 @@ export class AddPostComponent implements OnInit {
   // tags :string[] = [];
   tags = "";
   desc = "";
+  errMsg = ""
+
+  tagUserPlaceholder = "Tag users"
 
   @Output() addedPost = new EventEmitter<boolean>();
   
@@ -60,17 +65,24 @@ export class AddPostComponent implements OnInit {
   }
 
   addPost(x : number, y : number, z : number){
-    let tags = {content : this.tags}
-    let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), 
-      x_Position : x, y_Position : y, z_Position : z, description : this.desc, tags : tags, taggedUsers : this.tagPeople}
-    console.log(newPost);
-    this.addedPost.emit(true);
-    // this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
-    //   console.log(newPost);
-    //   this.postService.createdNewPost.next(newPost);
-    //   this.addedPost.emit(true);
-    // },
-    // (error) => console.log(error))
+    
+    if(this.imgSrc){
+      let tags = this.tags
+      let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), 
+        x_Position : x, y_Position : y, z_Position : z, description : this.desc, 
+        tags : tags, taggedUsers : this.tagPeople} 
+      console.log(newPost);
+      this.addedPost.emit(true);
+      // this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
+      //   console.log(newPost);
+      //   this.postService.createdNewPost.next(newPost);
+      //   this.addedPost.emit(true);
+      // },
+      // (error) => console.log(error))
+    }
+    else {
+      this.errMsg = "You must enter an image!"
+    }
   }
 
 }

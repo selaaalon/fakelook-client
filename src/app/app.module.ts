@@ -29,6 +29,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { AddDescriptionComponent } from './components/add-description/add-description.component';
 import { MatInputModule } from '@angular/material/input'
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -64,7 +65,8 @@ import { MatInputModule } from '@angular/material/input'
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,10 +14,21 @@
     /* border-right:solid 0.5em rgb(206, 205, 205) ; */
 }
 
-.publish-and-friends{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    margin-top: 10vh;
+.btns{
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    /* gap: 10px; */
+    /* justify-content: center;
+    align-items: center;
+    text-align: center; */
+    margin-top: 30%;
+}
+
+button:hover{
+    border: 1px solid black;
 }
 
 .publish-and-friends > * {
@@ -42,3 +53,6 @@ input{
     row-gap: 15px;
 }
 
+/* .filters-btn{
+    display: inline;
+} */

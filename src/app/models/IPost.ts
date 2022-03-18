@@ -13,7 +13,7 @@ export interface IPost {
     location? : { x: number; y: number; z: number };
     likes? : ILike[],
     taggedUsers? : string,
-    tags? : ITag[],
+    tags? : string,
     comments? : IComment[],
     date : Date,
     userId? : number

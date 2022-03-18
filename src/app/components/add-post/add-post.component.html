@@ -1,8 +1,10 @@
 <div class="main-container">
-    <label for="img">Add image : </label>
-    <input name="img" type="file" (change)="addImg($event)">
 
-    
+    <!-- <label for="img">Add image : </label> -->
+    <label for="file-upload" class="custom-file-upload">
+        <i class="fa fa-cloud-upload"></i> Custom Upload
+    </label>
+    <input color="primary" id="file-upload" type="file" (change)="addImg($event)">
 
     <!-- <label for="addDesc">Description : </label>
     <input type="text" name="addDesc" [(ngModel)]="desc"> -->
@@ -12,14 +14,16 @@
    
     <!-- <label for="tagPeople">Tag people : </label>
     <input type="text" name="tagPeople" [(ngModel)]="tagPeople"> -->
-    <app-tag-people (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
+    <app-tag-people [placeholder]="tagUserPlaceholder" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
 
     <!-- <label for="tags">Add tags : </label>
     <input type="text" name="tags" [(ngModel)]="tags"> -->
 
     <app-add-tags (addTagsToPostEvent)="addTags($event)"></app-add-tags>
 
-    <button (click)="addPostWithLocation()">Add me!</button>
+    <button mat-stroked-button color="primary" (click)="addPostWithLocation()">Add me!</button>
+
+    <div>{{errMsg}}</div>
 </div>
 
 

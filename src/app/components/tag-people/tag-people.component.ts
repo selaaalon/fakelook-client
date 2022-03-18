@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -21,6 +21,8 @@ export class TagPeopleComponent implements OnInit {
   allUsersNames: string[] = [];
 
   @Output() addTaggedUsersToPostEvent = new EventEmitter<string>();
+
+  @Input() placeholder = '';
 
   @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
 
