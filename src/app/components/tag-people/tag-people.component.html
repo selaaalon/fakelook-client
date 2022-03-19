@@ -21,7 +21,7 @@
         >
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let user of allUsersNames" [value]="user">
+      <mat-option *ngFor="let user of displayUsers" [value]="user">
         {{user}}
       </mat-option>
     </mat-autocomplete>

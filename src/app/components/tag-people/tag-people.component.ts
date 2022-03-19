@@ -19,6 +19,8 @@ export class TagPeopleComponent implements OnInit {
   filteredUsers = new Observable<string[]>();
   taggedUsers: string[] = [] 
   allUsersNames: string[] = [];
+  displayUsers : string[] = [];
+  allUsersId : number[] = [];
 
   @Output() addTaggedUsersToPostEvent = new EventEmitter<string>();
 
@@ -33,11 +35,13 @@ export class TagPeopleComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getAllUsers().subscribe((users) => {
       users.forEach((user)=>{
-        this.allUsersNames.push(user.name!);
+        this.allUsersNames.push(user.userName);
+        this.allUsersId.push(user.id!);
+        this.displayUsers.push(user.userName);
       })
       this.filteredUsers = this.usersCtrl.valueChanges.pipe(
         startWith(null),
-        map((user: string | null) => (user ? this._filter(user) : this.allUsersNames.slice(0, this.allUsersNames.length))),
+        map((user: string | null) => (user ? this._filter(user) : this.displayUsers.slice(0, this.displayUsers.length))),
       );
     })
   }
@@ -45,14 +49,18 @@ export class TagPeopleComponent implements OnInit {
   addTaggedUsersToPost(allTaggedUsers : string[]){
     let taggedUsersToPostConcat = "";
     allTaggedUsers.forEach((user) => {
-      taggedUsersToPostConcat = taggedUsersToPostConcat + ", " + user;
+      let index = this.allUsersNames.indexOf(user);
+      let taggedUserId = this.allUsersId[index]
+      taggedUsersToPostConcat = taggedUsersToPostConcat + ", " + taggedUserId;
     })
+
     this.addTaggedUsersToPostEvent.emit(taggedUsersToPostConcat.trim());
   }
 
   removeTaggedUser(value : string){
-    let deleteIndex = this.allUsersNames.indexOf(value) 
-    this.allUsersNames.splice(deleteIndex,1);
+    let deleteIndex = this.displayUsers.indexOf(value) 
+    // this.allUsersId.splice(deleteIndex,1);
+    this.displayUsers.splice(deleteIndex,1);
   }
 
 
@@ -60,8 +68,9 @@ export class TagPeopleComponent implements OnInit {
     const value = (event.value || '').trim();
 
 
-    // Add our fruit
-    if (value && this.allUsersNames.indexOf(value) > -1 && this.taggedUsers.indexOf(value) == -1) {
+    // Add our user
+    let index = this.displayUsers.indexOf(value);
+    if (value && index > -1 && this.taggedUsers.indexOf(value) == -1) {
       this.removeTaggedUser(value);
       this.taggedUsers.push(value);
       this.addTaggedUsersToPost(this.taggedUsers);
@@ -80,7 +89,7 @@ export class TagPeopleComponent implements OnInit {
 
     if (index >= 0) {
       this.taggedUsers.splice(index, 1);
-      this.allUsersNames.push(user);
+      this.displayUsers.push(user);
       this.addTaggedUsersToPost(this.taggedUsers);
     }
     
@@ -92,7 +101,6 @@ export class TagPeopleComponent implements OnInit {
       this.taggedUsers.push(value);
       this.removeTaggedUser(value);
       this.addTaggedUsersToPost(this.taggedUsers);
-      console.log(value);
     }
     this.fruitInput.nativeElement.value = '';
     this.usersCtrl.setValue(null);
@@ -102,7 +110,7 @@ export class TagPeopleComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allUsersNames.filter(user => user.toLowerCase().includes(filterValue));
+    return this.displayUsers.filter(user => user.toLowerCase().includes(filterValue));
   }
 }
 

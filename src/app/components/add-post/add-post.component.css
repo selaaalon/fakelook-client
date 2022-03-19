@@ -8,9 +8,12 @@
     text-align-last: center;
 }
 
+
 button:hover{
     border: 1px solid black;
 }
+
+
 
 input[type="file"] {
     display: none;
@@ -25,9 +28,20 @@ input[type="file"] {
     color: darkblue;
 }
 
+.red-border{
+    border: 1px solid red;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight : 500;
+    color: darkblue;
+}
+
 .custom-file-upload:hover{
     border: 1px solid black;
 }
+
 /* input{
     align-self: center;
 } */

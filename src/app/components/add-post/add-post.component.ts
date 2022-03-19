@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
 import { ITag } from 'src/app/models/ITag';
 import { PostService } from 'src/app/services/post.service';
@@ -12,16 +12,20 @@ export class AddPostComponent implements OnInit {
 
   imgFile? : File;
   imgSrc = "";
+  imgName = "";
   tagPeople = "";
+  tagPeopleId : any[] = [];
   // tags :string[] = [];
   tags = "";
+  itagArr : ITag[] = [];
   desc = "";
-  errMsg = ""
+  errMsg = "";
+  btnClass = "custom-file-upload"; 
+  
 
   tagUserPlaceholder = "Tag users"
 
   @Output() addedPost = new EventEmitter<boolean>();
-  
   
   constructor(private postService : PostService) { }
 
@@ -48,6 +52,9 @@ export class AddPostComponent implements OnInit {
         this.imgSrc = e.target.result;
       }
       reader.readAsDataURL(this.imgFile);
+      this.imgName = this.imgFile.name;
+      this.btnClass = "custom-file-upload";
+      this.errMsg = "";
     }
   }
 
@@ -60,6 +67,26 @@ export class AddPostComponent implements OnInit {
     this.tags = newTags;
   }
 
+  addTaggedPeopleToPost(){
+    let tagsArr = this.tagPeople.split(", ");
+    tagsArr.forEach((tag) => {
+      if(tag){
+        let taggedId = {userId : parseInt(tag)}
+        this.tagPeopleId.push(taggedId);
+      }
+    })
+  }
+
+  addTagsToPost(){
+    let tagsArr = this.tags.split(", ");
+    tagsArr.forEach((tag) => {
+      if(tag){
+        let itag = {content : tag} as ITag;
+        this.itagArr.push(itag);
+      }
+    })
+  }
+
   addTaggedUsers(newTaggedUsers : string){
     this.tagPeople = newTaggedUsers;
   }
@@ -67,22 +94,53 @@ export class AddPostComponent implements OnInit {
   addPost(x : number, y : number, z : number){
     
     if(this.imgSrc){
-      let tags = this.tags
+      this.addTagsToPost();
+      this.addTaggedPeopleToPost();
       let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), 
         x_Position : x, y_Position : y, z_Position : z, description : this.desc, 
-        tags : tags, taggedUsers : this.tagPeople} 
-      console.log(newPost);
-      this.addedPost.emit(true);
-      // this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
-      //   console.log(newPost);
-      //   this.postService.createdNewPost.next(newPost);
-      //   this.addedPost.emit(true);
-      // },
-      // (error) => console.log(error))
+        tags : this.itagArr, userTaggedPost : this.tagPeopleId} 
+      
+      // console.log(this.tagPeopleId);
+      // console.log(newPost);
+      // this.addedPost.emit(true);
+
+      this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
+        console.log(newPost);
+        this.postService.createdNewPost.next(newPost);
+        this.addedPost.emit(true);
+      },
+      (error) => console.log(error))
     }
     else {
-      this.errMsg = "You must enter an image!"
+      this.btnClass = "red-border";
+      this.errMsg = "You must enter an image.";
     }
   }
+
+  // @ViewChild('fileInput') fileInput!: ElementRef;
+  // fileAttr = '';
+
+  // uploadFileEvt(imgFile: any) {
+  //   if (imgFile.target.files && imgFile.target.files[0]) {
+  //     this.fileAttr = '';
+  //     Array.from(imgFile.target.files).forEach((file: any) => {
+  //       this.fileAttr += file.name + ' - ';
+  //     });
+  //     // HTML5 FileReader API
+  //     let reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       let image = new Image();
+  //       image.src = e.target.result;
+  //       image.onload = (rs) => {
+  //         let imgBase64Path = e.target.result;
+  //       };
+  //     };
+  //     reader.readAsDataURL(imgFile.target.files[0]);
+  //     // Reset if duplicate image uploaded again
+  //     this.fileInput.nativeElement.value = '';
+  //   } else {
+  //     this.fileAttr = 'Choose File';
+  //   }
+  // }
 
 }

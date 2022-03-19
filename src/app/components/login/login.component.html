@@ -28,7 +28,7 @@
         <div class="form-input">
             <strong><label>Not registred yet? </label> <a href="/signup">Create an Account</a></strong>
         </div>
-        <div>
+        <div class="errorMsg">
             <!-- <button mat-raised-button (click)="signup()">Signup</button> -->
             <div *ngIf="existUser">I found you!</div>
             <div *ngIf="missingUserName">You must enter userName!</div>

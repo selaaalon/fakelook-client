@@ -1,10 +1,14 @@
 <div class="main-container">
 
     <!-- <label for="img">Add image : </label> -->
-    <label for="file-upload" class="custom-file-upload">
-        <i class="fa fa-cloud-upload"></i> Custom Upload
+    <label  for="file-upload" [class]="btnClass">
+        <i class="fa fa-cloud-upload"></i> Add image
     </label>
-    <input color="primary" id="file-upload" type="file" (change)="addImg($event)">
+    <input  id="file-upload" type="file" (change)="addImg($event)">
+    <div>
+        {{imgName}}
+    </div>
+    
 
     <!-- <label for="addDesc">Description : </label>
     <input type="text" name="addDesc" [(ngModel)]="desc"> -->
@@ -23,7 +27,7 @@
 
     <button mat-stroked-button color="primary" (click)="addPostWithLocation()">Add me!</button>
 
-    <div>{{errMsg}}</div>
+    <div class="errorMsg">{{errMsg}}</div>
 </div>
 
 
