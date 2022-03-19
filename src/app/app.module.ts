@@ -30,6 +30,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { AddDescriptionComponent } from './components/add-description/add-description.component';
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 
@@ -66,7 +68,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

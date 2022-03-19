@@ -5,6 +5,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { map, Observable, startWith } from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { TagsService } from 'src/app/services/tags.service';
+import { ITag } from 'src/app/models/ITag';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class AddTagsComponent implements OnInit {
   filteredTags = new Observable<string[]>();
   selectedTags: string[] = [];
   allTags: string[] = [];
+  allITags: ITag[] = [];
 
   @Output() addTagsToPostEvent = new EventEmitter<string>();
 
@@ -33,6 +35,7 @@ export class AddTagsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagService.getAllTags(sessionStorage.getItem('token')!).subscribe((tags) => {
+      this.allITags = tags;
       tags.forEach((tag)=>{
         this.allTags.push(tag.content);
       })
@@ -82,6 +85,7 @@ export class AddTagsComponent implements OnInit {
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
       this.allTags.push(tag);
+      this.allTags.sort();
       this.addTagsToPost(this.selectedTags);
     }
   }
@@ -93,6 +97,7 @@ export class AddTagsComponent implements OnInit {
     //   this.addTagsToPost(this.selectedTags);
     // }
     this.selectedTags.push(event.option.viewValue);
+    this.allTags = this.allTags.filter(t => t !== event.option.viewValue);
     this.addTagsToPost(this.selectedTags);
     this.tagsInput.nativeElement.value = '';
     this.tagsCtrl.setValue(null);
