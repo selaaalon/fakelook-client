@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/models/IUser';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,21 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   usersArray = new Array<IUser>();
-  name = "";
-  password = "";
+  // name = "";
+  // password = "";
   existUser = false;
   rememberMe = false;
   missingUserName = false;
   missingPassword = false;
   error = "";
 
+  loginForm = this.fb.group({
+    userName: ['', Validators.required],
+    formPassword: ['', Validators.required],
+  });
 
-  constructor(private authService : AuthService, private router : Router) { }
+
+  constructor(private authService : AuthService, private router : Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -36,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   validateUser(user : IUser) : boolean{
-    if((user.name == this.name) && (user.password == this.password)){
+    if((user.name == this.loginForm.value.userName) && (user.password == this.loginForm.value.formPassword)){
       return true;
     }
     return false;
@@ -57,7 +63,7 @@ export class LoginComponent implements OnInit {
     if(this.checkMissingFields()){
       return;
     }
-    let user = {userName : this.name, password : this.password};
+    let user = {userName : this.loginForm.value.userName, password : this.loginForm.value.formPassword};
     this.authService.login(user).subscribe((res) => {
           this.setToken(res.token);
           console.log("logged to the user");
@@ -70,8 +76,8 @@ export class LoginComponent implements OnInit {
           this.error = error.error.detail;
           console.log(error.error.detail)
         });
-        this.name = "";
-        this.password = "";
+        // this.name = "";
+        // this.password = "";
   }
 
   private getToken(): string | null {
@@ -87,18 +93,20 @@ export class LoginComponent implements OnInit {
   }
 
   checkMissingFields(){
-    let isMissing = false;
-    if(!this.name){
-      this.missingUserName = true;
-      isMissing = true;
-    }
-    else this.missingUserName = false;
-    if(!this.password){
-      this.missingPassword = true;
-      isMissing = true;
-    }
-    else this.missingPassword = false;
-    return isMissing;
+    // let isMissing = false;
+    // if(!this.loginForm.value.userName){
+    //   this.missingUserName = true;
+    //   isMissing = true;
+    // }
+    // else this.missingUserName = false;
+    // if(!this.loginForm.value.formPassword){
+    //   this.missingPassword = true;
+    //   isMissing = true;
+    // }
+    // else this.missingPassword = false;
+    // return isMissing;
+    
+    return(!this.loginForm.value.userName || !this.loginForm.value.formPassword);
   }
 
   signup(){

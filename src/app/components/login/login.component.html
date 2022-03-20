@@ -1,40 +1,48 @@
-<div class="login-container">
+<div class="login-container" >
+
     <div class="form-container">
+
         <h1>Login</h1>
-        <div class="form-input-container">
-            <!-- <label for="Email">Name: </label>
-            <input type="text" [(ngModel)]="name"> -->
-            <mat-form-field class="form-input"> 
-                <mat-label>Username</mat-label>
-                <input type="text" matInput [(ngModel)]="name">
-                <mat-icon matSuffix class="input-icon">person</mat-icon>
-            </mat-form-field>
-        </div>
-        <div class="form-input-container">
-            <!-- <label for="Password">Password: </label>
-            <input type="password" [(ngModel)]="password"> -->
-            <mat-form-field class="form-input">
-                <mat-label>Password</mat-label>
-                <input type="password" matInput [(ngModel)]="password">
-                <mat-icon matSuffix class="input-icon">lock</mat-icon>
-            </mat-form-field>
-        </div>
+        <form class="from-group"  [formGroup]="loginForm">
+
+            
+            <div class="form-input-container">
+                <mat-form-field> 
+                    <mat-label>Username</mat-label>
+                    <!-- <input type="text" matInput [(ngModel)]="name" formControlName="userName"> -->
+                    <input type="text" matInput formControlName="userName">
+                    <mat-icon matSuffix class="input-icon">person</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="form-input-container">
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <!-- <input type="password" matInput [(ngModel)]="password" formControlName="formPassword"> -->
+                    <input type="password" matInput formControlName="formPassword">
+                    <mat-icon matSuffix class="input-icon">lock</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <button mat-raised-button color="primary" (click)="login()">Sign In</button>
+
+        </form>
+
         <div class="form-input">
-            <input type="checkbox" id="remember"  name="remember" value="rememberMe" [(ngModel)]="rememberMe">
-            <label for="remember"><strong>Remember me</strong></label>
+            <div class="checkbox">
+                <input type="checkbox" id="remember"  name="remember" value="rememberMe" [(ngModel)]="rememberMe">
+                <label for="remember"><strong>Remember me</strong></label>
+            </div>
             <a routerLink="/forgot-password" routerLinkActive="active"><strong>Forgot password?</strong></a>
         </div>
-        <button mat-raised-button color="primary" (click)="login()">Sign In</button>
+        
+
         <div class="form-input">
             <strong><label>Not registred yet? </label> <a href="/signup">Create an Account</a></strong>
         </div>
+
         <div class="errorMsg">
-            <!-- <button mat-raised-button (click)="signup()">Signup</button> -->
-            <div *ngIf="existUser">I found you!</div>
-            <div *ngIf="missingUserName">You must enter userName!</div>
-            <div *ngIf="missingPassword">You must enter password!</div>
-            <div>{{error}}</div>
-            
+            <div>{{error}}</div> 
         </div>
     </div>
     <div class="side-container">
