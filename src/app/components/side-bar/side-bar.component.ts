@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-bar',
@@ -14,7 +15,7 @@ export class SideBarComponent implements OnInit {
 
   // @Input() placeholderToTagPeople = 'Tagged Users'; 
   
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -24,5 +25,6 @@ export class SideBarComponent implements OnInit {
       this.popupAddPost = false;
     }
   }
+
 
 }

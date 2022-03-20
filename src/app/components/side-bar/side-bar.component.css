@@ -1,8 +1,9 @@
 .main-container{
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
     text-align: center;
+
     /* row-gap: 5px; */
     position: fixed;
     left: 0;
@@ -11,6 +12,7 @@
     z-index: 2;
     /* background-color: aliceblue; */
     background-color: whitesmoke;
+    justify-content: space-around;
     /* border-right:solid 0.5em rgb(206, 205, 205) ; */
 }
 
@@ -22,9 +24,13 @@
     margin-top: 30%;
 }
 
-button:hover{
+.btns > * :hover{
     border: 1px solid black;
 }
+
+/* button:hover{
+    border: 1px solid black;
+} */
 
 /* .publish-and-friends > * {
     justify-self: center;
@@ -55,3 +61,12 @@ h3{
 /* .filters-btn{
     display: inline;
 } */
+
+
+.blue{
+    color: #3F51B5;
+    width: 30%;
+    text-align: center;
+    justify-self: center;
+    margin-top: 15%;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -10,9 +11,14 @@ export class MainPageComponent implements OnInit {
   clickedMenu = false;
 
 
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
+  }
+
+  
+  logout(){
+    this.router.navigate([""])
   }
 
 }

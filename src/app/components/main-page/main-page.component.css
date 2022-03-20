@@ -103,3 +103,13 @@ img{
     width: 2.5%;
     height: 50%;
 }
+
+.logout{
+    color: whitesmoke;
+    background-color: transparent;
+    border: 0px;
+}
+
+.logout:hover{
+    cursor: pointer;
+}
