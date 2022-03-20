@@ -1,4 +1,4 @@
-img{
+/* img{
     width: 20vw;
     height: 15vw;
 }
@@ -9,5 +9,15 @@ img{
     align-items: center;
     justify-content: center;
     padding: 10px;
-    /* border: 1px solid black; */
+} */
+
+.example-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 15px;
 }

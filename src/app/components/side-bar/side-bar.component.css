@@ -3,12 +3,12 @@
     flex-direction: column;
     /* align-items: center; */
     text-align: center;
-    row-gap: 10px;
+    /* row-gap: 5px; */
     position: fixed;
     left: 0;
     height: 100%;
     width: 15%;
-    z-index: 1;
+    z-index: 2;
     /* background-color: aliceblue; */
     background-color: whitesmoke;
     /* border-right:solid 0.5em rgb(206, 205, 205) ; */
@@ -19,11 +19,6 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
-    /* gap: 10px; */
-    /* justify-content: center;
-    align-items: center;
-    text-align: center; */
     margin-top: 30%;
 }
 
@@ -31,12 +26,10 @@ button:hover{
     border: 1px solid black;
 }
 
-.publish-and-friends > * {
+/* .publish-and-friends > * {
     justify-self: center;
     align-items: center;
-    /* padding: auto; */
-    /* row-gap: 10%; */
-}
+} */
 
 app-add-post{
     grid-row: 2/3;
@@ -50,7 +43,13 @@ input{
 .filters{
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
+
+    /* row-gap: 15px; */
+}
+
+h3{
+    margin-top: 15%;
+    margin-bottom: 1%;
 }
 
 /* .filters-btn{

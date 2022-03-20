@@ -1,0 +1,9 @@
+button{
+    border: 1px solid black;
+}
+
+.main-container{
+    display: flex;
+    gap: 7%;
+    align-items: center;
+}

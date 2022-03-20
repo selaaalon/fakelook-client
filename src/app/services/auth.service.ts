@@ -35,11 +35,11 @@ export class AuthService {
     return this.http.post<IUser>(this.usersUrl, newUser, httpOptions);
   }
 
-  changePassword(newPassword : string){
-    // const currentUrl = `${this.usersUrl}/login`;
-    let user = {}
-    return this.http.put<any>(this.usersUrl, user);
-  }
+  // changePassword(newPassword : string){
+  //   // const currentUrl = `${this.usersUrl}/login`;
+  //   let user = {}
+  //   return this.http.put<any>(this.usersUrl, user);
+  // }
 
   editUser(userName : string, password : string){
     return this.http.patch(this.usersUrl, {userName, password});

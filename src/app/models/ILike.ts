@@ -1,4 +1,6 @@
 export interface ILike{
     id? : number,
-    isActive : boolean
+    isActive : boolean,
+    postId : number,
+    userId? : number
 }

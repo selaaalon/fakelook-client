@@ -5,13 +5,52 @@
   </div>
   
   <div class="router">
+
+    <!-- <p>
+        <mat-toolbar>
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span>My App</span>
+          <span class="example-spacer"></span>
+          <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>share</mat-icon>
+          </button>
+      </mat-toolbar>
+    </p> -->
     <!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
     <div class="nav-bar">
+     
       <nav class="row">
-          <a routerLink="/main-page/map" routerLinkActive="active">Map view </a>
-          <a routerLink="/main-page/timeline" routerLinkActive="active">Timeline view</a>
+        <mat-toolbar  color="primary">
+          <!-- <img src="../../../assets/logo2-removebg-preview.png" alt=""> -->
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span>FakeLook</span>
+          <span class="example-spacer"></span>
+          <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <mat-icon>favorite</mat-icon>
+          </button> -->
+          <div class="links">
+            <a routerLink="/main-page/map" routerLinkActive="active">Map view </a>
+            <a routerLink="/main-page/timeline" routerLinkActive="active">Timeline view</a>
+          </div>
+
+          <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>share</mat-icon>
+          </button> -->
+        </mat-toolbar>
+          <!-- <a routerLink="/main-page/map" routerLinkActive="active">Map view </a> -->
+          <!-- <a routerLink="/main-page/timeline" routerLinkActive="active">Timeline view</a> -->
         </nav>
+        
     </div>
+
+    
     <!-- The routed views render in the <router-outlet>-->
     <div class="router-outlet-container">
       <router-outlet></router-outlet>

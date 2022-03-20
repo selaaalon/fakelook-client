@@ -29,6 +29,10 @@ export class AddPostComponent implements OnInit {
   
   constructor(private postService : PostService) { }
 
+  // ngOnDestroy(){
+  //   this.postService.createdNewPost.unsubscribe();
+  // }
+
   ngOnInit(): void {
   }
 

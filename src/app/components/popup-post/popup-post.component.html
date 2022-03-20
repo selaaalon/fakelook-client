@@ -1,4 +1,4 @@
-<!-- <p>popup-post works!</p> -->
+<!-- <p>popup-post works!</p>
 
     <div class="dialog-container" (click)="close()">
         <div class="display-center">
@@ -14,4 +14,51 @@
       </div>
 
 
-  
+   -->
+<div class="dialog-container" (click)="close()">
+  <div class="display-center">
+    <div class="post-dialog">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <!-- <mat-card-title>{{post.userId!}}</mat-card-title> -->
+        </mat-card-header>
+        <img mat-card-image src="{{ post.imageSorce }}" alt="{{post.description}}">
+        <div class="card-content">
+          <mat-card-content>
+            <p>
+              {{post.description}}
+              <!-- {{post.tags}} -->
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <div>
+              
+            </div>
+            <button mat-button  (click)="addLike()"> 
+              <ng-container *ngIf="!alreadyLiked">
+                <i class="material-icons-outlined blue">thumb_up</i>
+              </ng-container>
+
+              <ng-container *ngIf="alreadyLiked">
+                <i class="material-icons blue">thumb_up</i>
+              </ng-container>
+            </button>
+
+
+            <button mat-button color="primary" (click)="addComment()">COMMENT</button>
+          </mat-card-actions>
+
+          <app-add-comment *ngIf="addCommentFlag" (addConnentEvent)="addItem($event)"></app-add-comment>
+
+          <ng-container *ngIf="!addCommentFlag && allComments.length > 0">
+            <div class="costum-scrollbar">
+              <p *ngFor="let comment of allComments">{{comment.content}}</p>
+            </div>
+          </ng-container>
+          
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

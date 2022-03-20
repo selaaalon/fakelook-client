@@ -15,7 +15,7 @@ import { TimelineViewComponent } from './components/timeline-view/timeline-view.
 import { PostComponent } from './components/post/post.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { MapComponent } from './components/map/map.component';
-import { MapModule } from './modules/map.module';
+// import { MapModule } from './modules/map.module';
 import { PopupPostComponent } from './components/popup-post/popup-post.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { TagPeopleComponent } from './components/tag-people/tag-people.component';
@@ -31,7 +31,10 @@ import { AddDescriptionComponent } from './components/add-description/add-descri
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import {MatCardModule} from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
+import { AngularCesiumModule, AngularCesiumWidgetsModule } from 'angular-cesium';
 
 
 
@@ -51,7 +54,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     TagPeopleComponent,
     AddTagsComponent,
     DateFilterComponent,
-    AddDescriptionComponent
+    AddDescriptionComponent,
+    AddCommentComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MapModule,
+    // MapModule,
     MatAutocompleteModule,
     MatFormFieldModule,
     MatChipsModule,
@@ -69,7 +74,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatNativeDateModule,
     MatInputModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatCardModule,
+    AngularCesiumModule.forRoot(),
+    AngularCesiumWidgetsModule,
+    HttpClientModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

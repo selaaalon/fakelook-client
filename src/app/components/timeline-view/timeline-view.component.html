@@ -1,5 +1,8 @@
-<app-popup-post *ngIf="showDialog" [post]="selectedPost" (closeDialogEmitter)="closeDialog()"></app-popup-post>
+<app-popup-post *ngIf="showDialog" [post]="selectedPost" (closeDialogEmitter)="showDialog = false"></app-popup-post>
 
-<app-post [post]="postsArray[i]" *ngFor="let post of postsArray; let i = index;" (click)="showFullPost(post)"></app-post>
+<div class="all-posts">
+    <app-post [post]="postsArray[i]" *ngFor="let post of postsArray; let i = index;" 
+    (click)="showFullPost(post)"></app-post>
+</div>
 
 <!-- </div> -->

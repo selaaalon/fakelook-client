@@ -19,7 +19,12 @@ export class TimelineViewComponent implements OnInit {
 
   constructor(private postService : PostService, private authService : AuthService, private router : Router) { }
 
+  ngOnDestroy(){
+    this.postService.createdNewPost.unsubscribe();
+  }
+
   ngOnInit(): void {
+
     this.getAllPosts();
     
     this.postService.createdNewPost.subscribe((item)=>{
@@ -48,10 +53,6 @@ export class TimelineViewComponent implements OnInit {
   showFullPost(post: IPost): void {
     this.showDialog = true;
     this.selectedPost = post;
-  }
-
-  closeDialog(): void {
-    this.showDialog = false;
   }
 
 }
