@@ -22,11 +22,14 @@ export class TagPeopleComponent implements OnInit {
   displayUsers : string[] = [];
   allUsersId : number[] = [];
 
+  taggedUsersIds = "taggedUsers=";
+
+
   @Output() addTaggedUsersToPostEvent = new EventEmitter<string>();
 
   @Input() placeholder = '';
 
-  @ViewChild('fruitInput') fruitInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('peopleInput') peopleInput!: ElementRef<HTMLInputElement>;
 
   constructor(private authService : AuthService) {
     
@@ -48,12 +51,27 @@ export class TagPeopleComponent implements OnInit {
 
   addTaggedUsersToPost(allTaggedUsers : string[]){
     let taggedUsersToPostConcat = "";
+
+    // for (let index = 0; index < allTaggedUsers.length; index++) {
+    //   const user = allTaggedUsers[index];
+    //   let idx = this.allUsersNames.indexOf(user);
+    //   let taggedUserId = this.allUsersId[idx];
+    //   taggedUsersToPostConcat = taggedUsersToPostConcat + ", " + taggedUserId;
+    //   if(index == allTaggedUsers.length-1){
+    //     this.taggedUsersIds =  this.taggedUsersIds + taggedUserId
+    //   }
+    //   else this.taggedUsersIds =  this.taggedUsersIds + taggedUserId + "&taggedUsers=   "
+    // }
+    // console.log(this.taggedUsersIds);
     allTaggedUsers.forEach((user) => {
       let index = this.allUsersNames.indexOf(user);
       let taggedUserId = this.allUsersId[index]
+      // this.taggedUsersIds =  this.taggedUsersIds + taggedUserId + "&taggedUsers="
       taggedUsersToPostConcat = taggedUsersToPostConcat + ", " + taggedUserId;
     })
 
+    // let temp = taggedUsersToPostConcat.split(", ");
+    // console.log(temp);
     this.addTaggedUsersToPostEvent.emit(taggedUsersToPostConcat.trim());
   }
 
@@ -102,7 +120,7 @@ export class TagPeopleComponent implements OnInit {
       this.removeTaggedUser(value);
       this.addTaggedUsersToPost(this.taggedUsers);
     }
-    this.fruitInput.nativeElement.value = '';
+    this.peopleInput.nativeElement.value = '';
     this.usersCtrl.setValue(null);
   }
 

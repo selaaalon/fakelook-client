@@ -35,6 +35,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
 import { AngularCesiumModule, AngularCesiumWidgetsModule } from 'angular-cesium';
+import { DatePipe } from '@angular/common'
 
 
 
@@ -81,7 +82,7 @@ import { AngularCesiumModule, AngularCesiumWidgetsModule } from 'angular-cesium'
     HttpClientModule,
     MatToolbarModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

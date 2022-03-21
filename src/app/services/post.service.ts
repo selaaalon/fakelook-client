@@ -33,7 +33,7 @@ export class PostService {
   // }
 
   getAllPosts() : Observable<IPost[]> {
-    if(!this.localPostsArray){  
+    if(!this.localPostsArray){ 
       let token = sessionStorage.getItem('token');
       let httpOptions = {
           headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}),
@@ -58,5 +58,22 @@ export class PostService {
       this.localPostsArray?.push(post);
       this.postsSubject.next(this.localPostsArray!);
     }));
+  }
+
+  getFilteredPosts(filters : string){
+    let token = sessionStorage.getItem('token');
+    let currentUrl = this.postsUrl + "/filter?" + filters;
+    let httpOptions = {
+        headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}),
+    };
+    this.http.get<IPost[]>(currentUrl, httpOptions).subscribe((res) => {
+      this.localPostsArray = res;
+      this.postsSubject.next(res);
+    });
+  }
+
+  resetPosts(){
+    this.localPostsArray = undefined;
+    return this.getAllPosts();
   }
 }

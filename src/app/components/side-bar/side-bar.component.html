@@ -18,26 +18,26 @@
         <app-add-post (addedPost)="addPost($event)" *ngIf="popupAddPost"></app-add-post>
 
         <div class="filters" *ngIf="!popupAddPost">
-            
+
             <h3>Filter by:</h3>
-            <app-date-filter></app-date-filter>
+            <app-date-filter (onFormGroupChange)="onFormGroupChangeEvent($event)"></app-date-filter>
             <!-- <div>
                 From : <input type="date"> To : <input type="date">
             </div> -->
             <div>
-                <app-tag-people [placeholder]="publishersPlaceholder"></app-tag-people>
+                <app-tag-people [placeholder]="publishersPlaceholder" (addTaggedUsersToPostEvent)="addPublishers($event)"></app-tag-people>
             </div>
 
             <div>
-                <app-add-tags></app-add-tags>
+                <app-add-tags (addTagsToPostEvent)="addTags($event)"></app-add-tags>
             </div>
             <div>
-                <app-tag-people [placeholder]="taggeUsersPlaceholder"></app-tag-people>
+                <app-tag-people [placeholder]="taggeUsersPlaceholder" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
             </div>
 
             <div class="btns">
-                <button color="primary" mat-stroked-button>Done</button>
-                <button color="primary" mat-stroked-button>Reset</button>
+                <button color="primary" mat-stroked-button (click)="done()">Done</button>
+                <button color="primary" mat-stroked-button (click)="reset()">Reset</button>
             </div>
             
     
