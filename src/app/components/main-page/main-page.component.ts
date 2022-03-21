@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { IPost } from 'src/app/models/IPost';
 
 @Component({
   selector: 'app-main-page',
@@ -9,7 +11,6 @@ import { Router } from '@angular/router';
 export class MainPageComponent implements OnInit {
 
   clickedMenu = false;
-
 
   constructor(private router : Router) { }
 

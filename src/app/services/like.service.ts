@@ -14,9 +14,9 @@ export class LikeService {
 
   constructor(private http : HttpClient) { }
 
-  ngOnDestroy(){
-    this.addingLike.unsubscribe();
-  }
+  // ngOnDestroy(){
+  //   this.addingLike.unsubscribe();
+  // }
 
   addLike(newLike : ILike) : Observable<ILike> {
     let token = sessionStorage.getItem('token');

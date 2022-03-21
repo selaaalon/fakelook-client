@@ -17,6 +17,8 @@ import { PostService } from '../../services/post.service';
 })
 export class MapComponent implements OnInit {
 
+  postsArray = new Array<IPost>();
+
   constructor(
     private viewerConf: ViewerConfiguration,
     private postService: PostService
@@ -41,13 +43,26 @@ export class MapComponent implements OnInit {
   selectedPost!: IPost;
   showDialog = false;
   Cesium = Cesium;
+
   ngOnInit(): void {
     // this.initList();
     this.initPostsOnMap();
+
+    // this.postService.createdNewPost.subscribe(()=>{
+    //   this.initPostsOnMap();
+    //   // this.postsArray.push(item);
+    //   // this.sortArray();
+    // });
+
+    // this.postService.createdNewPost.subscribe()
+    // this.postService.getAllPosts(sessionStorage.getItem('token')!).subscribe((posts) => {
+    //   this.postsArray = posts;
+    // })
   }
 
   initPostsOnMap() {
-    this.entities$ = this.postService.getAllPosts(sessionStorage.getItem('token')!).pipe(
+    this.entities$ = this.postService.getAllPosts().pipe(
+    // this.postService.getAllPosts(sessionStorage.getItem('token')!).pipe(
       map((posts) => {
         return posts.map((post: IPost) => ({
           id: post.id,
@@ -64,6 +79,8 @@ export class MapComponent implements OnInit {
       }),
       mergeMap((entity) => entity)
     );
+    
+    
   }
 
   // initList() {

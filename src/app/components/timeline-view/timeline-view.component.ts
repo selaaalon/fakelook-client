@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { IPost } from 'src/app/models/IPost';
 import { IUser } from 'src/app/models/IUser';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,26 +16,28 @@ export class TimelineViewComponent implements OnInit {
   postsArray = new Array<IPost>();
   showDialog = false;
   selectedPost!: IPost;
+
+  @Input() postsObs = new Observable<IPost[]>();
   
 
   constructor(private postService : PostService, private authService : AuthService, private router : Router) { }
 
-  ngOnDestroy(){
-    this.postService.createdNewPost.unsubscribe();
-  }
+  // ngOnDestroy(){
+  //   this.postService.createdNewPost.unsubscribe();
+  // }
 
   ngOnInit(): void {
 
     this.getAllPosts();
     
-    this.postService.createdNewPost.subscribe((item)=>{
-      this.postsArray.push(item);
-      this.sortArray();
-    });
+    // this.postService.createdNewPost.subscribe((item)=>{
+    //   this.postsArray.push(item);
+    //   this.sortArray();
+    // });
   }
 
   getAllPosts(){
-    this.postService.getAllPosts(sessionStorage.getItem('token')!).subscribe((posts)=>{
+    this.postService.getAllPosts().subscribe((posts)=>{
       // this.postsArray = posts.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
       this.postsArray = posts;
       this.sortArray();

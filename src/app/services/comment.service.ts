@@ -14,9 +14,9 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  ngOnDestroy(){
-    this.createdNewComment.unsubscribe();
-  }
+  // ngOnDestroy(){
+  //   this.createdNewComment.unsubscribe();
+  // }
 
   getCommentsByPost(id : number){
     let currentUrl = this.commentsUrl + "/post" + "/" + id;

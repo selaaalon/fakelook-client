@@ -108,9 +108,9 @@ export class AddPostComponent implements OnInit {
       // console.log(newPost);
       // this.addedPost.emit(true);
 
-      this.postService.addPost(newPost, sessionStorage.getItem('token')!).subscribe(() => {
-        console.log(newPost);
-        this.postService.createdNewPost.next(newPost);
+      this.postService.addPost(newPost).subscribe((p) => {
+        // console.log(newPost);
+        // this.postService.createdNewPost.next(p);
         this.addedPost.emit(true);
       },
       (error) => console.log(error))
