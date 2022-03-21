@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of, Subject, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, Subject, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IPost } from '../models/IPost';
 
@@ -12,7 +12,7 @@ export class PostService {
 
   // createdNewPost = new Subject<IPost>();
   localPostsArray? :  Array<IPost>;
-  postsSubject = new Subject<IPost[]>();
+  postsSubject = new BehaviorSubject<IPost[]>([]);
 
   constructor(private http: HttpClient) { }
 
@@ -33,14 +33,19 @@ export class PostService {
   // }
 
   getAllPosts() : Observable<IPost[]> {
-    let token = sessionStorage.getItem('token');
-    let httpOptions = {
-        headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}),
-      };
-      this.http.get<IPost[]>(this.postsUrl, httpOptions).subscribe((res) => {
-        this.localPostsArray = res;
-        this.postsSubject.next(res);
-      });
+    if(!this.localPostsArray){  
+      let token = sessionStorage.getItem('token');
+      let httpOptions = {
+          headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}),
+        };
+        this.http.get<IPost[]>(this.postsUrl, httpOptions).subscribe((res) => {
+          this.localPostsArray = res;
+          this.postsSubject.next(res);
+        });
+        // return this.postsSubject.asObservable();
+    }
+    // return of(this.localPostsArray!);
+    // console.log(this.postsSubject.asObservable());
     return this.postsSubject.asObservable();
   }
 

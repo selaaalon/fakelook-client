@@ -18,6 +18,7 @@
         <app-add-post (addedPost)="addPost($event)" *ngIf="popupAddPost"></app-add-post>
 
         <div class="filters" *ngIf="!popupAddPost">
+            
             <h3>Filter by:</h3>
             <app-date-filter></app-date-filter>
             <!-- <div>
@@ -26,6 +27,7 @@
             <div>
                 <app-tag-people [placeholder]="publishersPlaceholder"></app-tag-people>
             </div>
+
             <div>
                 <app-add-tags></app-add-tags>
             </div>
