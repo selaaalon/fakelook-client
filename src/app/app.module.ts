@@ -37,6 +37,7 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
 import { AngularCesiumModule, AngularCesiumWidgetsModule } from 'angular-cesium';
 import { DatePipe } from '@angular/common';
 import {MatDialogModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 
 
 
@@ -59,7 +60,8 @@ import {MatDialogModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA} from '@angula
     DateFilterComponent,
     AddDescriptionComponent,
     AddCommentComponent,
-    MapComponent
+    MapComponent,
+    EditPostComponent
   ],
   imports: [
     BrowserModule,
