@@ -1,0 +1,28 @@
+<div class="edit-post-container">
+    <div class="edit-post-semi-container">
+        <div class="edit-post-dialog">
+            <mat-card class="example-card">
+              <mat-card-header>
+                
+              </mat-card-header>
+              <img mat-card-image src="{{ post.imageSorce }}" alt="{{post.description}}">
+              <div class="card-content">
+                <mat-card-content>
+                    <label  for="file-upload" [class]="btnClass">
+                        <i class="fa fa-cloud-upload"></i> Add image
+                    </label>
+                    <input  id="file-upload" type="file" (change)="addImg($event)">
+                    <div>
+                        {{imgName}}
+                    </div>
+                    <app-add-description (addDescEvent)="addDescription($event)"></app-add-description>
+                    <app-tag-people [placeholder]="tagUserPlaceholder" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
+                    <app-add-tags (addTagsToPostEvent)="addTags($event)"></app-add-tags>
+                </mat-card-content>
+                <mat-card-actions>
+
+                </mat-card-actions>
+            </mat-card>
+          </div>
+    </div>
+</div>

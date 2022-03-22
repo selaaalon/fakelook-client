@@ -1,0 +1,25 @@
+.edit-post-container {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    top: 5%;
+    overflow: hidden;
+}
+
+.edit-post-semi-container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    padding: 0.5em 0em;
+}
+
+.edit-post-dialog {
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+    background-color: aliceblue;
+}
+
