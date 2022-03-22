@@ -70,10 +70,29 @@ export class PostService {
       this.localPostsArray = res;
       this.postsSubject.next(res);
     });
+    return this.postsSubject.asObservable();
   }
 
   resetPosts(){
     this.localPostsArray = undefined;
     return this.getAllPosts();
+  }
+
+  updatePost(id : number, newPost : IPost){
+    let currentUrl = this.postsUrl + "/" + id;
+    let token = sessionStorage.getItem('token');
+    let httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`})
+    };
+    console.log(newPost);
+    this.http.patch(currentUrl, newPost, httpOptions).subscribe(()=>{
+      let tempPost = this.localPostsArray?.find(p => p.id == newPost.id);
+      let idx = this.localPostsArray?.indexOf(tempPost!);
+
+      this.localPostsArray![idx!] = newPost;
+      //console.log(this.localPostsArray);
+      this.postsSubject.next(this.localPostsArray!);
+    })
+    return this.postsSubject.asObservable();
   }
 }

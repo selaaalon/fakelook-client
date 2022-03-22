@@ -1,3 +1,13 @@
+/* 
+
+ .edit-post-semi-container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    padding: 0.5em 0em;
+}
+
 .edit-post-container {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.8);
@@ -8,18 +18,89 @@
     overflow: hidden;
 }
 
-.edit-post-semi-container {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: flex;
-    padding: 0.5em 0em;
-}
-
-.edit-post-dialog {
+.post-dialog {
     justify-self: center;
     align-items: center;
     text-align: center;
     background-color: aliceblue;
+    width: 80%;
 }
 
+.like{
+    display: flex;
+    align-items: center;
+} */
+
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+img {
+    width: 400px;
+    height: 300px;
+}
+
+
+p{
+    font-size: larger;
+}
+
+button {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+  
+.card-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: min-content;
+}
+
+.costum-scrollbar{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: scroll;
+    align-items: flex-start;
+    height: 100px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight : 500;
+    color: #3F51B5;
+}
+.costum-scrollbar{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: scroll;
+    align-items: flex-start;
+    height: 200px;
+}
+
+#btns{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    width: 100%;
+}
+
+/* .example-card{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+} */

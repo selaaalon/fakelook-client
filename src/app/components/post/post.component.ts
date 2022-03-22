@@ -9,8 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class PostComponent implements OnInit {
 
-  @Input() post : IPost = {imageSorce : "", description : "", x_Position : 0, y_Position : 0, 
-    z_Position : 0, date : new Date(Date.now()), userId : 0};
+  // @Input() post : IPost = {imageSorce : "", description : "", x_Position : 0, y_Position : 0, 
+  //   z_Position : 0, date : new Date(Date.now()), userId : 0};
+  @Input() post! : IPost;
 
   imgSrc = "";
   desc? = "";

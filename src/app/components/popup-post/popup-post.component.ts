@@ -28,6 +28,8 @@ export class PopupPostComponent implements OnInit {
 
   alreadyLiked = false;
   addCommentFlag = false;
+  edit = false;
+  editBtn = true;
 
 
   constructor(private commentService : CommentService, private likesService : LikeService) { }
@@ -44,6 +46,7 @@ export class PopupPostComponent implements OnInit {
 
     this.commentService.createdNewComment.subscribe((comment)=>{
       this.allComments.push(comment);
+      
     })
 
     this.getAllLikes();
@@ -114,6 +117,16 @@ export class PopupPostComponent implements OnInit {
     this.close();
   }
 
+  editPost(){
+    event?.stopPropagation();
+    this.edit =! this.edit;
+  }
+
+  finishEdit(){
+    event?.stopPropagation();
+    this.edit = false;
+  }
+
 
   close(): void {
     //adding new like as our user to post
@@ -135,7 +148,7 @@ export class PopupPostComponent implements OnInit {
         this.alreadyLiked = ! this.alreadyLiked;
       });
     }
-
+    //console.log(this.post);
     this.closeDialogEmitter.emit();
   }
 

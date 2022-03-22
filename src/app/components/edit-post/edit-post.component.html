@@ -1,28 +1,31 @@
-<div class="edit-post-container">
+<!-- <div class="edit-post-container">
     <div class="edit-post-semi-container">
         <div class="edit-post-dialog">
-            <mat-card class="example-card">
-              <mat-card-header>
-                
-              </mat-card-header>
-              <img mat-card-image src="{{ post.imageSorce }}" alt="{{post.description}}">
-              <div class="card-content">
-                <mat-card-content>
-                    <label  for="file-upload" [class]="btnClass">
-                        <i class="fa fa-cloud-upload"></i> Add image
-                    </label>
-                    <input  id="file-upload" type="file" (change)="addImg($event)">
-                    <div>
-                        {{imgName}}
+            <div class="post-dialog"> -->
+                <!-- <mat-card class="example-card"> -->
+                    <div class="image">
+                        <img mat-card-image src="{{ post.imageSorce! }}" alt="{{post.description}}">
                     </div>
-                    <app-add-description (addDescEvent)="addDescription($event)"></app-add-description>
-                    <app-tag-people [placeholder]="tagUserPlaceholder" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
-                    <app-add-tags (addTagsToPostEvent)="addTags($event)"></app-add-tags>
-                </mat-card-content>
-                <mat-card-actions>
+                    <div class="card-content costum-scrollbar">
+                      <mat-card-content>
+                          <label  for="file-upload" [class]="btnClass">
+                              <i class="fa fa-cloud-upload"></i> Add image
+                          </label>
+                          <input  id="file-upload" type="file" (click)="stopProp()" (change)="addImg($event)">{{imgName}}<br>
+                          <app-add-description (click)="stopProp()" (addDescEvent)="addDescription($event)"></app-add-description>
+                          <app-tag-people (click)="stopProp()" placeholder="Tag Users" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
+                          <app-add-tags (click)="stopProp()" (addTagsToPostEvent)="addTags($event)"></app-add-tags>
+                      </mat-card-content>
 
-                </mat-card-actions>
-            </mat-card>
-          </div>
+
+                      <div id="btns">
+                        <button mat-stroked-button color="primary" (click)="edit()">Edit</button>
+                        <button mat-stroked-button color="warn" (click)="cancel()">Cancel</button>
+                      </div>
+                    </div>
+                  <!-- </mat-card> -->
+            <!-- </div>
+            
+        </div>
     </div>
-</div>
+</div> -->

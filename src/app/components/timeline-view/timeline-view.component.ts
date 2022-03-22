@@ -36,6 +36,7 @@ export class TimelineViewComponent implements OnInit {
     // });
   }
 
+
   getAllPosts(){
     this.postService.getAllPosts().subscribe((posts)=>{
       // this.postsArray = posts.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
@@ -57,6 +58,11 @@ export class TimelineViewComponent implements OnInit {
     this.showDialog = true;
     this.selectedPost = post;
     
+  }
+
+  close(){
+    this.showDialog = false;
+    console.log(this.postsArray);
   }
 
 }

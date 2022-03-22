@@ -141,8 +141,10 @@ export class SideBarComponent implements OnInit {
 
   done(){
     let filter = this.addFilters();
-    this.postService.getFilteredPosts(filter);
-    this.reloadCurrentRoute();
+    this.postService.getFilteredPosts(filter).subscribe(()=>{
+      this.reloadCurrentRoute();
+    });
+    
     // this.router.navigate(['main-page']);
     
   }
