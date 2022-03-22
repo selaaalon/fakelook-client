@@ -2,7 +2,7 @@
     <div class="comment-container costum-scrollbar">
         <mat-form-field appearance="legacy">
             <mat-label>Add a comment</mat-label>
-            <textarea (click)="stopPropogation()" [(ngModel)]="comment" matInput
+            <textarea (click)="stopPropogation()" matInput
                       cdkTextareaAutosize
                       #content
                       #autosize="cdkTextareaAutosize"
@@ -11,8 +11,8 @@
                       (input)="addCom($event)"
                       ></textarea>
         </mat-form-field>
-        <app-tag-people (click)="stopPropogation()" placeholder="@TagUsers"></app-tag-people>
-        <app-add-tags (click)="stopPropogation()"></app-add-tags>
+        <app-tag-people (click)="stopPropogation()" placeholder="@TagUsers" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
+        <app-add-tags (click)="stopPropogation()" (addTagsToPostEvent)="addTags($event)"></app-add-tags>
     </div>
     
     <div>

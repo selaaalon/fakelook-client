@@ -6,7 +6,7 @@ export interface IComment{
     content : string,
     userId? : number;
     postId : number;
-    userTaggedPost? : number[],
+    userTaggedComment? : number[],
     tags? : ITag[],
     user? : IUser
 }

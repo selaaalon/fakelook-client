@@ -34,13 +34,15 @@
           </mat-card-actions>
 
           <div *ngIf="addCommentFlag" class="addComment">
-            <app-add-comment  (addCommentEvent)="addItem($event)"></app-add-comment>
+            <app-add-comment [postId]="post.id!" (addCommentEvent)="addItem($event)"></app-add-comment>
           </div>
           
 
           <ng-container *ngIf="!addCommentFlag && allComments.length > 0">
             <div class="costum-scrollbar">
-              <p *ngFor="let comment of allComments">{{comment.user!.userName}} : {{comment.content}}</p>
+              <p *ngFor="let comment of allComments">
+                <span>{{comment.user!.userName}} : {{comment.content}} </span>
+              </p>
             </div>
           </ng-container>
           

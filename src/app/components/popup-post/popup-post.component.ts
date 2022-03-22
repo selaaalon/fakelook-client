@@ -99,18 +99,19 @@ export class PopupPostComponent implements OnInit {
     this.addCommentFlag = !this.addCommentFlag;
   }
 
-  addItem(comment: string) {
+  addItem(comment: IComment) {
 
     // let tags = 
     // let newComment = {content : comment, postId : this.post.id!} as IComment;
     console.log(comment);
-    // this.commentService.addComment(newComment).subscribe(() => {
-    //   this.commentService.createdNewComment.next(newComment);
-    //   console.log("Added comment");
-    //   console.log(newComment);
-    //   this.addCommentFlag = false;
-    // })
-    // this.items.push(newItem);
+    this.commentService.addComment(comment).subscribe(() => {
+      this.commentService.createdNewComment.next(comment);
+      console.log("Added comment");
+      console.log(comment);
+      this.addCommentFlag = false;
+    }, (error) => console.log(error)
+    );
+    this.close();
   }
 
 

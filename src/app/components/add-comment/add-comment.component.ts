@@ -1,6 +1,8 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, EventEmitter, NgZone, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } from '@angular/core';
 import { take } from 'rxjs';
+import { IComment } from 'src/app/models/IComment';
+import { ITag } from 'src/app/models/ITag';
 
 @Component({
   selector: 'app-add-comment',
@@ -9,11 +11,16 @@ import { take } from 'rxjs';
 })
 export class AddCommentComponent implements OnInit {
 
-  @Output() addCommentEvent = new EventEmitter<string>();
+  @Output() addCommentEvent = new EventEmitter<IComment>();
+  @Input() postId = 0;
 
   users = false;
   placeholder = ""
   comment = "";
+  tags = "";
+  tagPeople = "";
+  taggedUsers : any[]= [];
+  itags : ITag[] = [];
 
   constructor(private _ngZone: NgZone) { }
 
@@ -35,12 +42,17 @@ export class AddCommentComponent implements OnInit {
 
   addComment(comment: string){
     event?.stopPropagation();
-    let content = "";
-    let users = [];
-    let tags = [];
+    console.log(this.itags);
+    console.log(this.taggedUsers);
 
-    let newComment = comment;
+    this.addTagsToComment();
+    this.addTaggedUsersToComment();
+
+
+    let newComment = {content : comment, userTaggedComment : this.taggedUsers, tags : this.itags, postId : this.postId} as IComment;
     this.addCommentEvent.emit(newComment);
+    // console.log(this.tags);
+    // console.log(this.taggedUsers);
   }
 
   closeTag(){
@@ -57,5 +69,54 @@ export class AddCommentComponent implements OnInit {
     }
     console.log(this.users);
   }
+
+  addTaggedUsers(newTaggedUsers : string){
+    this.tagPeople = newTaggedUsers;
+  }
+
+
+
+  addTaggedUsersToComment(){
+    let tagsArr = this.tagPeople.split(", ");
+    tagsArr.forEach((tag) => {
+      if(tag){
+        let taggedId = {userId : parseInt(tag)}
+        this.taggedUsers.push(taggedId);
+      }
+    })
+
+    // let taggedUsersString = this.tagPeople.split(', ').filter(function(value, idx, arr){
+    //   return value
+    // });
+    // taggedUsersString.forEach((user) => {
+    //   this.taggedUsers.push(parseInt(user));
+    // })
+    // console.log(this.taggedUsers);
+  }
+
+  addTags(newTags: string){
+    this.tags = newTags
+  }
+
+  addTagsToComment(){
+    let tagsArr = this.tags.split(", ");
+    tagsArr.forEach((tag) => {
+      if(tag){
+        let itag = {content : tag} as ITag;
+        this.itags.push(itag);
+      }
+    })
+    // console.log(this.tags);
+  }
+
+  // addTagsToPost(){
+  //   let tagsArr = this.tags.split(", ");
+  //   tagsArr.forEach((tag) => {
+  //     if(tag){
+  //       let itag = {content : tag} as ITag;
+  //       this.itagArr.push(itag);
+  //     }
+  //   })
+  // }
 
 }

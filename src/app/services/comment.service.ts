@@ -28,6 +28,7 @@ export class CommentService {
   }
 
   addComment(newPost : IComment) : Observable<IComment> {
+    console.log("err");
     let token = sessionStorage.getItem('token');
     let httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`})
