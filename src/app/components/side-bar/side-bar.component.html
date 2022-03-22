@@ -25,14 +25,14 @@
                 From : <input type="date"> To : <input type="date">
             </div> -->
             <div>
-                <app-tag-people [placeholder]="publishersPlaceholder" (addTaggedUsersToPostEvent)="addPublishers($event)"></app-tag-people>
+                <app-tag-people placeholder="Publishers" (addTaggedUsersToPostEvent)="addPublishers($event)"></app-tag-people>
             </div>
 
             <div>
                 <app-add-tags (addTagsToPostEvent)="addTags($event)"></app-add-tags>
             </div>
             <div>
-                <app-tag-people [placeholder]="taggeUsersPlaceholder" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
+                <app-tag-people placeholder="Tag Users" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
             </div>
 
             <div class="btns">

@@ -1,20 +1,4 @@
-<!-- <p>popup-post works!</p>
 
-    <div class="dialog-container" (click)="close()">
-        <div class="display-center">
-          <div class="post-dialog">
-            <div>
-              <img src="{{ post.imageSorce }}" alt="{{ post.description }}" />
-            </div>
-            <div class="post-description display-center">
-              <h3>{{ post.description }}</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-   -->
 <div class="dialog-container" (click)="close()">
   <div class="display-center">
     <div class="post-dialog">
@@ -49,11 +33,14 @@
             <button mat-button color="primary" (click)="addComment()">COMMENT</button>
           </mat-card-actions>
 
-          <app-add-comment *ngIf="addCommentFlag" (addConnentEvent)="addItem($event)"></app-add-comment>
+          <div *ngIf="addCommentFlag" class="addComment">
+            <app-add-comment  (addCommentEvent)="addItem($event)"></app-add-comment>
+          </div>
+          
 
           <ng-container *ngIf="!addCommentFlag && allComments.length > 0">
             <div class="costum-scrollbar">
-              <p *ngFor="let comment of allComments">{{comment.content}}</p>
+              <p *ngFor="let comment of allComments">{{comment.user!.userName}} : {{comment.content}}</p>
             </div>
           </ng-container>
           

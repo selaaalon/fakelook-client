@@ -63,6 +63,10 @@
             <mat-error *ngIf="signupForm.hasError('notSame')">
                 Passwords do not match
             </mat-error>  
+
+            <mat-error *ngIf="signupForm.hasError('validUserName')">
+                UserName must not contains spaces
+            </mat-error>
             <!-- <div>
                 <label>Email: </label>
                 <input type="text" [(ngModel)]="email">

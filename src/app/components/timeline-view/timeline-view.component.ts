@@ -56,6 +56,7 @@ export class TimelineViewComponent implements OnInit {
   showFullPost(post: IPost): void {
     this.showDialog = true;
     this.selectedPost = post;
+    
   }
 
 }

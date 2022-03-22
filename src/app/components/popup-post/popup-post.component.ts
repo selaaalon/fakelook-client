@@ -20,9 +20,11 @@ export class PopupPostComponent implements OnInit {
   allLikes = new Array<ILike>();
 
   likeColor : string = "";
+  taggedUsers = "@";
 
   userId = 0;
   likeId = 0;
+  isActive = true;
 
   alreadyLiked = false;
   addCommentFlag = false;
@@ -49,7 +51,9 @@ export class PopupPostComponent implements OnInit {
       this.allLikes.push(like);
     })
 
-    console.log(this.post);
+
+
+    // console.log(this.post);
   }
 
   getAllLikes(){
@@ -59,6 +63,7 @@ export class PopupPostComponent implements OnInit {
       this.allLikes.forEach((like) => {
         if(this.userId == like.userId){
           this.likeId = like.id!;
+          this.isActive = like.isActive;
           if(like.isActive){
             this.alreadyLiked = true;
           }
@@ -84,27 +89,7 @@ export class PopupPostComponent implements OnInit {
 
   addLike(){
     event?.stopPropagation();
-    //if the user cancels his like
-    if(this.alreadyLiked){
-      console.log("works");
-      this.likesService.updateLike(this.likeId, false).subscribe(()=>{
-        this.alreadyLiked = ! this.alreadyLiked;
-      });
-    }
-    //if the user wants to press like again
-    else if(this.likeId != 0){
-      this.likesService.updateLike(this.likeId, true).subscribe(()=>{
-        this.alreadyLiked = ! this.alreadyLiked;
-      });
-    }
-    //user adding a new like
-    else{
-      let newLike =  {isActive : true, postId : this.post.id} as ILike
-      this.likesService.addLike(newLike).subscribe(()=>{
-        this.likesService.addingLike.next(newLike);
-        this.alreadyLiked = ! this.alreadyLiked;
-      })
-    }
+    this.alreadyLiked = !this.alreadyLiked;
     
   }
 
@@ -115,19 +100,41 @@ export class PopupPostComponent implements OnInit {
   }
 
   addItem(comment: string) {
-    let newComment = {content : comment, postId : this.post.id!} as IComment;
-    
-    this.commentService.addComment(newComment).subscribe(() => {
-      this.commentService.createdNewComment.next(newComment);
-      console.log("Added comment");
-      console.log(newComment);
-      this.addCommentFlag = false;
-    })
+
+    // let tags = 
+    // let newComment = {content : comment, postId : this.post.id!} as IComment;
+    console.log(comment);
+    // this.commentService.addComment(newComment).subscribe(() => {
+    //   this.commentService.createdNewComment.next(newComment);
+    //   console.log("Added comment");
+    //   console.log(newComment);
+    //   this.addCommentFlag = false;
+    // })
     // this.items.push(newItem);
   }
 
 
   close(): void {
+    //adding new like as our user to post
+    if(this.alreadyLiked && !this.likeId){
+      let newLike =  {isActive : true, postId : this.post.id} as ILike
+      this.likesService.addLike(newLike).subscribe(()=>{
+        this.likesService.addingLike.next(newLike);
+        this.alreadyLiked = !this.alreadyLiked;
+      })
+    }
+    //adding new like
+    if(!this.alreadyLiked && this.likeId){
+      this.likesService.updateLike(this.likeId, false).subscribe(()=>{
+        this.alreadyLiked = ! this.alreadyLiked;
+      });
+    }
+    if(this.alreadyLiked && this.likeId && !this.isActive){
+      this.likesService.updateLike(this.likeId, true).subscribe(()=>{
+        this.alreadyLiked = ! this.alreadyLiked;
+      });
+    }
+
     this.closeDialogEmitter.emit();
   }
 

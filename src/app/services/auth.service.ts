@@ -12,6 +12,8 @@ export class AuthService {
   private usersUrl = "https://localhost:44349/Users";
   subs: Subscription[] = [];
 
+  usersArray : IUser[] = [];
+
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<IUser[]> {

@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
 import { IPost } from '../../models/IPost';
 import { PostService } from '../../services/post.service';
+import {MatDialog} from '@angular/material/dialog';
+import { PopupPostComponent } from '../popup-post/popup-post.component';
+
 
 @Component({
   selector: 'app-map',
@@ -21,7 +24,8 @@ export class MapComponent implements OnInit {
 
   constructor(
     private viewerConf: ViewerConfiguration,
-    private postService: PostService
+    private postService: PostService,
+    public dialog: MatDialog
   ) {
     viewerConf.viewerOptions = {
       selectionIndicator: false,
@@ -45,24 +49,11 @@ export class MapComponent implements OnInit {
   Cesium = Cesium;
 
   ngOnInit(): void {
-    // this.initList();
     this.initPostsOnMap();
-
-    // this.postService.createdNewPost.subscribe(()=>{
-    //   this.initPostsOnMap();
-    //   // this.postsArray.push(item);
-    //   // this.sortArray();
-    // });
-
-    // this.postService.createdNewPost.subscribe()
-    // this.postService.getAllPosts(sessionStorage.getItem('token')!).subscribe((posts) => {
-    //   this.postsArray = posts;
-    // })
   }
 
   initPostsOnMap() {
     this.entities$ = this.postService.getAllPosts().pipe(
-    // this.postService.getAllPosts(sessionStorage.getItem('token')!).pipe(
       map((posts) => {
         return posts.map((post: IPost) => ({
           id: post.id,
@@ -82,14 +73,12 @@ export class MapComponent implements OnInit {
     
     
   }
-
-  // initList() {
-  //   this.initPostsOnMap();
-  // }
   
   showFullPost(post: IPost): void {
     this.showDialog = true;
     this.selectedPost = post;
+    
+    
   }
 
 }

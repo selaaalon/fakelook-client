@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
   constructor(private authService : AuthService, private router : Router, private fb : FormBuilder) { }
 
   ngOnInit(): void {
-    this.signupForm.setValidators(this.checkPasswords);
+    this.signupForm.setValidators([this.checkPasswords, this.checkUserName]);
   }
 
   validatePassword(){
@@ -53,6 +53,11 @@ export class SignupComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
+  checkUserName: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 
+    let userName = group.get('userName')!.value;
+    // let confirmPass = group.get('password2')!.value
+    return userName.indexOf(' ') === -1  ? null : { validUserName: true }
+  }
   // resetForm() {
   //   this.authPassword = true;
   //   this.email = "";
@@ -66,7 +71,7 @@ export class SignupComponent implements OnInit {
   // }
 
   submit(){
-    if(this.validatePassword()){
+    // if(this.validatePassword()){
       let newUser = {email : this.signupForm.value.email ,name: this.signupForm.value.fullName ,
         userName : this.signupForm.value.userName, password : this.signupForm.value.password1, 
         BirthDate : this.signupForm.value.birthDate, address : this.signupForm.value.address, job : this.signupForm.value.job}
@@ -74,7 +79,7 @@ export class SignupComponent implements OnInit {
       this.authService.signup(newUser).subscribe(()=>{
         this.signupForm.reset();
       });
-    }
+    // }
 
   }
 

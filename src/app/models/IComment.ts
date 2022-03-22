@@ -1,4 +1,5 @@
 import { ITag } from "./ITag";
+import { IUser } from "./IUser";
 
 export interface IComment{
     id? : number,
@@ -6,5 +7,6 @@ export interface IComment{
     userId? : number;
     postId : number;
     userTaggedPost? : number[],
-    tags? : ITag[]
+    tags? : ITag[],
+    user? : IUser
 }

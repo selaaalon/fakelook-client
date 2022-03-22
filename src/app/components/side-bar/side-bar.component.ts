@@ -12,8 +12,7 @@ export class SideBarComponent implements OnInit {
   
   popupAddPost = false;
   hover = false;
-  taggeUsersPlaceholder = "Tagged Users";
-  publishersPlaceholder = "Publishers";
+
 
   tagsFilter = "";
   taggedUsersFilter = "";

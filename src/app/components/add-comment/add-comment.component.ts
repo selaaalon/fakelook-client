@@ -9,7 +9,11 @@ import { take } from 'rxjs';
 })
 export class AddCommentComponent implements OnInit {
 
-  @Output() addConnentEvent = new EventEmitter<string>();
+  @Output() addCommentEvent = new EventEmitter<string>();
+
+  users = false;
+  placeholder = ""
+  comment = "";
 
   constructor(private _ngZone: NgZone) { }
 
@@ -20,16 +24,38 @@ export class AddCommentComponent implements OnInit {
     this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
   }
 
+  // addNewComment(value: string) {
+  //   this.addCommentEvent.emit(value);
+  // }
+
   stopPropogation(){
     event?.stopPropagation();
+    // console.log(this.comment);
   }
 
   addComment(comment: string){
     event?.stopPropagation();
-    this.addConnentEvent.emit(comment);
+    let content = "";
+    let users = [];
+    let tags = [];
+
+    let newComment = comment;
+    this.addCommentEvent.emit(newComment);
+  }
+
+  closeTag(){
+    event?.stopPropagation();
+    this.users = false;
   }
 
   ngOnInit(): void {
+  }
+
+  addCom(value : any){
+    if(value.data === "@"){
+      this.users = true;
+    }
+    console.log(this.users);
   }
 
 }

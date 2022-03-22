@@ -24,7 +24,7 @@ export class TagPeopleComponent implements OnInit {
 
   taggedUsersIds = "taggedUsers=";
 
-
+  @Output() addTagToComment = new EventEmitter<string>();
   @Output() addTaggedUsersToPostEvent = new EventEmitter<string>();
 
   @Input() placeholder = '';
@@ -119,9 +119,11 @@ export class TagPeopleComponent implements OnInit {
       this.taggedUsers.push(value);
       this.removeTaggedUser(value);
       this.addTaggedUsersToPost(this.taggedUsers);
+      this.addTagToComment.emit(value);
     }
     this.peopleInput.nativeElement.value = '';
     this.usersCtrl.setValue(null);
+    
   }
 
 
