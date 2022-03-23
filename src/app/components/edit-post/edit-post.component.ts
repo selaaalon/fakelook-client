@@ -34,6 +34,7 @@ export class EditPostComponent implements OnInit {
   }
 
   addImg(event : any){
+    this.stopProp();
     this.imgFile = event.target.files[0];
     if(this.imgFile){
       var reader =new FileReader();

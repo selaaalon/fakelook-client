@@ -98,6 +98,14 @@ input[type="file"] {
     width: 100%;
 }
 
+.main-container{
+    width: min-content;
+}
+
+/* mat-card{
+    width: min-content;
+} */
+
 /* .example-card{
     display: flex;
     flex-direction: column;

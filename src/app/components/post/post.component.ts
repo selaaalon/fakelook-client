@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { IPost } from 'src/app/models/IPost';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -7,11 +7,15 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit,OnChanges {
 
   // @Input() post : IPost = {imageSorce : "", description : "", x_Position : 0, y_Position : 0, 
   //   z_Position : 0, date : new Date(Date.now()), userId : 0};
-  @Input() post! : IPost;
+  post!: IPost
+  @Input()set setPost(value : IPost){
+    this.post = value;
+    this.loadPostData();
+  }
 
   imgSrc = "";
   desc? = "";
@@ -25,9 +29,15 @@ export class PostComponent implements OnInit {
 
 
   constructor(private authService : AuthService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+   console.log(changes);
+   
+  }
 
 
   loadPostData(){
+    console.log(this.post);
+    
     this.imgSrc = this.post.imageSorce;
     this.desc = this.post.description;
     this.xPos = this.post.x_Position;

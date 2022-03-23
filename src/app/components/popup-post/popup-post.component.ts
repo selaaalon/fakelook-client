@@ -14,7 +14,7 @@ import { LikeService } from 'src/app/services/like.service';
 export class PopupPostComponent implements OnInit {
 
   @Input() post!: IPost;
-  @Output() closeDialogEmitter = new EventEmitter();
+  @Output() closeDialogEmitter = new EventEmitter<IPost>();
   
   allComments = new Array<IComment>();
   allLikes = new Array<ILike>();
@@ -129,6 +129,7 @@ export class PopupPostComponent implements OnInit {
   finishEdit(){
     event?.stopPropagation();
     this.edit = false;
+    // this.close();
   }
 
 
@@ -152,8 +153,11 @@ export class PopupPostComponent implements OnInit {
         this.alreadyLiked = ! this.alreadyLiked;
       });
     }
-    //console.log(this.post);
-    this.closeDialogEmitter.emit();
+    console.log("edit");
+    
+    console.log(this.post);
+
+    this.closeDialogEmitter.emit(this.post);
   }
 
 }

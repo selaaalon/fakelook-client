@@ -3,12 +3,13 @@
         <div class="edit-post-dialog">
             <div class="post-dialog"> -->
                 <!-- <mat-card class="example-card"> -->
+                <div class="main-container">
                     <div class="image">
                         <img mat-card-image src="{{ post.imageSorce! }}" alt="{{post.description}}">
                     </div>
                     <div class="card-content costum-scrollbar">
                       <mat-card-content>
-                          <label  for="file-upload" [class]="btnClass">
+                          <label (click)="stopProp()" for="file-upload" [class]="btnClass">
                               <i class="fa fa-cloud-upload"></i> Add image
                           </label>
                           <input  id="file-upload" type="file" (click)="stopProp()" (change)="addImg($event)">{{imgName}}<br>
@@ -23,6 +24,8 @@
                         <button mat-stroked-button color="warn" (click)="cancel()">Cancel</button>
                       </div>
                     </div>
+                </div>
+                    
                   <!-- </mat-card> -->
             <!-- </div>
             
