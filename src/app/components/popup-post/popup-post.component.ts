@@ -29,7 +29,7 @@ export class PopupPostComponent implements OnInit {
   alreadyLiked = false;
   addCommentFlag = false;
   edit = false;
-  editBtn = true;
+  editBtn = false;
 
 
   constructor(private commentService : CommentService, private likesService : LikeService) { }
@@ -40,6 +40,10 @@ export class PopupPostComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    this.parseJwt();
+    if(this.userId === this.post.userId){
+      this.editBtn = true;
+    }
     this.commentService.getCommentsByPost(this.post.id!).subscribe((comments) => {
       this.allComments = comments;
     });
