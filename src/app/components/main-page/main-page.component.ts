@@ -16,11 +16,15 @@ export class MainPageComponent implements OnInit {
   constructor(private router : Router, private authService : AuthService) { }
 
   ngOnInit(): void {
+    if(!sessionStorage.getItem('token')){
+      this.logout();
+    }
     this.authService.getUsersIdAndNames();
   }
 
   
   logout(){
+    sessionStorage.clear();
     this.router.navigate([""])
   }
 

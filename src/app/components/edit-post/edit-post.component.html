@@ -13,9 +13,18 @@
                               <i class="fa fa-cloud-upload"></i> Add image
                           </label>
                           <input  id="file-upload" type="file" (click)="stopProp()" (change)="addImg($event)">{{imgName}}<br>
-                          <app-add-description (click)="stopProp()" (addDescEvent)="addDescription($event)"></app-add-description>
-                          <app-tag-people (click)="stopProp()" placeholder="Tag Users" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
-                          <app-add-tags (click)="stopProp()" (addTagsToPostEvent)="addTags($event)"></app-add-tags>
+                          <div>
+                            <div class="edit">
+                                <app-add-description (click)="stopProp()" (addDescEvent)="addDescription($event)"></app-add-description>
+                              </div>
+                              <div class="edit">
+                                <app-tag-people (click)="stopProp()" placeholder="Tag Users" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
+                              </div>
+                              <div class="edit">
+                                <app-add-tags (click)="stopProp()" (addTagsToPostEvent)="addTags($event)"></app-add-tags>
+                              </div>
+                          </div>
+                         
                       </mat-card-content>
 
 

@@ -42,7 +42,6 @@ export class PopupPostComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.post.id)
     this.getUsersName();
     this.parseJwt();
     if(this.userId === this.post.userId){
@@ -50,7 +49,6 @@ export class PopupPostComponent implements OnInit {
     }
     this.commentService.getCommentsByPost(this.post.id!).subscribe((comments) => {
       this.allComments = comments;
-      console.log(this.allComments)
       this.allComments.forEach((comment)=>{
         comment.userName = this.userIdsAndNames[comment.userId!];
       })
@@ -91,18 +89,12 @@ export class PopupPostComponent implements OnInit {
   getUsersName(){
     let tagged = this.post.userTaggedPost;
     this.userIdsAndNames = this.authService.userIdsAndNames;
-    //console.log(tagged);
-    //this.userTaggedPost = this.authService.userIdsAndNames;
-    //console.log(this.userTaggedPost[1]);
     if(tagged){
       for (let index = 0; index < tagged.length; index++) {
         const user = tagged[index];
         this.userTaggedPost.push(this.authService.userIdsAndNames[user.userId])
       }
     }
-     
-    // console.log(this.userTaggedPost);
-    
   }
 
   parseJwt() {
@@ -139,11 +131,8 @@ export class PopupPostComponent implements OnInit {
 
     // let tags = 
     // let newComment = {content : comment, postId : this.post.id!} as IComment;
-    console.log(comment);
     this.commentService.addComment(comment).subscribe(() => {
       this.commentService.createdNewComment.next(comment);
-      console.log("Added comment");
-      console.log(comment);
       this.addCommentFlag = false;
     }, (error) => console.log(error)
     );

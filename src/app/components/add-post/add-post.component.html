@@ -1,6 +1,5 @@
 <div class="main-container">
 
-    <!-- <label for="img">Add image : </label> -->
     <label  for="file-upload" [class]="btnClass">
         <i class="fa fa-cloud-upload"></i> Add image
     </label>
@@ -8,20 +7,10 @@
     <div>
         {{imgName}}
     </div>
-    
-
-    <!-- <label for="addDesc">Description : </label>
-    <input type="text" name="addDesc" [(ngModel)]="desc"> -->
    
     <app-add-description (addDescEvent)="addDescription($event)"></app-add-description>
     
-   
-    <!-- <label for="tagPeople">Tag people : </label>
-    <input type="text" name="tagPeople" [(ngModel)]="tagPeople"> -->
     <app-tag-people [placeholder]="tagUserPlaceholder" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
-
-    <!-- <label for="tags">Add tags : </label>
-    <input type="text" name="tags" [(ngModel)]="tags"> -->
 
     <app-add-tags (addTagsToPostEvent)="addTags($event)"></app-add-tags>
 

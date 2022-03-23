@@ -102,6 +102,10 @@ input[type="file"] {
     width: min-content;
 }
 
+mat-card-content{
+    width: 100%;
+}
+
 /* mat-card{
     width: min-content;
 } */

@@ -11,8 +11,8 @@
                       (input)="addCom($event)"
                       ></textarea>
         </mat-form-field>
-        <app-tag-people (click)="stopPropogation()" placeholder="@TagUsers" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
-        <app-add-tags (click)="stopPropogation()" (addTagsToPostEvent)="addTags($event)"></app-add-tags>
+        <app-tag-people class="tags" (click)="stopPropogation()" placeholder="@TagUsers" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>
+        <app-add-tags class="tags" (click)="stopPropogation()" (addTagsToPostEvent)="addTags($event)"></app-add-tags>
     </div>
     
     <div>

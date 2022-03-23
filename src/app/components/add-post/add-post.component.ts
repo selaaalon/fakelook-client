@@ -15,23 +15,17 @@ export class AddPostComponent implements OnInit {
   imgName = "";
   tagPeople = "";
   tagPeopleId : any[] = [];
-  // tags :string[] = [];
   tags = "";
   itagArr : ITag[] = [];
   desc = "";
   errMsg = "";
   btnClass = "custom-file-upload"; 
   
-
   tagUserPlaceholder = "Tag users"
 
   @Output() addedPost = new EventEmitter<boolean>();
   
   constructor(private postService : PostService) { }
-
-  // ngOnDestroy(){
-  //   this.postService.createdNewPost.unsubscribe();
-  // }
 
   ngOnInit(): void {
   }
@@ -103,14 +97,8 @@ export class AddPostComponent implements OnInit {
       let newPost = {imageSorce : this.imgSrc, date : new Date(Date.now()), 
         x_Position : x, y_Position : y, z_Position : z, description : this.desc, 
         tags : this.itagArr, userTaggedPost : this.tagPeopleId} 
-      
-      // console.log(this.tagPeopleId);
-      // console.log(newPost);
-      // this.addedPost.emit(true);
 
       this.postService.addPost(newPost).subscribe((p) => {
-        // console.log(newPost);
-        // this.postService.createdNewPost.next(p);
         this.addedPost.emit(true);
       },
       (error) => console.log(error))
@@ -120,31 +108,5 @@ export class AddPostComponent implements OnInit {
       this.errMsg = "You must enter an image.";
     }
   }
-
-  // @ViewChild('fileInput') fileInput!: ElementRef;
-  // fileAttr = '';
-
-  // uploadFileEvt(imgFile: any) {
-  //   if (imgFile.target.files && imgFile.target.files[0]) {
-  //     this.fileAttr = '';
-  //     Array.from(imgFile.target.files).forEach((file: any) => {
-  //       this.fileAttr += file.name + ' - ';
-  //     });
-  //     // HTML5 FileReader API
-  //     let reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       let image = new Image();
-  //       image.src = e.target.result;
-  //       image.onload = (rs) => {
-  //         let imgBase64Path = e.target.result;
-  //       };
-  //     };
-  //     reader.readAsDataURL(imgFile.target.files[0]);
-  //     // Reset if duplicate image uploaded again
-  //     this.fileInput.nativeElement.value = '';
-  //   } else {
-  //     this.fileAttr = 'Choose File';
-  //   }
-  // }
 
 }

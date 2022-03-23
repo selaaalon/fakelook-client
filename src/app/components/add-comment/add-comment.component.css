@@ -4,28 +4,22 @@ button{
 
 .main-container{
     display: flex;
-    /* gap: 7%; */
     align-items: center;
     width: 130%;
     justify-content: space-around;
 }
 
 .comment-container{
-    /* height: min-content; */
     display: flex;
     flex-direction: column;
     text-align: left;
-    /* column-gap: 1%; */
 }
 
-/* .costum-scrollbar{
-    width: 120%;
-} */
 
 #content{
     min-width: 20px;
 }
 
-/* mat-form-field{
-    width: 90%;
-} */
+.tags{
+    width: 100%;
+}

@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
     this.authService.getAllUsers()
       .subscribe((users)=> {
         this.usersArray = users;
-        console.log(users);
       },
       (error) => console.log(error));
   }
@@ -65,9 +64,7 @@ export class LoginComponent implements OnInit {
     let user = {userName : this.loginForm.value.userName, password : this.loginForm.value.formPassword};
     this.authService.login(user).subscribe((res) => {
           this.openSnackBar();
-          this.setToken(res.token);
-          console.log("logged to the user");
-          console.log(res.token);
+          this.setToken(res.token); 
           setTimeout(() => {
             this.loading = false;
             this.router.navigate(["/main-page"]);
@@ -81,10 +78,6 @@ export class LoginComponent implements OnInit {
             console.log(error.error.detail)
           }, 500);
         });
-  }
-
-  private getToken(): string | null {
-    return sessionStorage.getItem('token');
   }
 
   private setToken(token: string): void {

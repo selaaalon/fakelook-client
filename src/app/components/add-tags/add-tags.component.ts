@@ -61,27 +61,18 @@ export class AddTagsComponent implements OnInit {
   
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
-    // // Add our tag 
-    // if (value) {
-    //   // this.removeTags(value);
-    //   this.selectedTags.push(value);
-    // }
     this.selectedTags.push(value);
+
     // Clear the input value
-    
     event.chipInput!.clear();
     this.tagsInput.nativeElement.value = '';
-    
-
     this.tagsCtrl.setValue(null);
     this.addTagsToPost(this.selectedTags);
-    // console.log(this.tags);
   }
 
+  //remove tags from the chip-list
   remove(tag: string): void {
     const index = this.selectedTags.indexOf(tag);
-
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
       this.allTags.push(tag);
@@ -90,8 +81,9 @@ export class AddTagsComponent implements OnInit {
     }
   }
 
+  //autocomplete tags based of the tags we have in our DB.
+  //add the selected tagd to the post
   selected(event: MatAutocompleteSelectedEvent): void {
-
     this.selectedTags.push(event.option.viewValue);
     this.allTags = this.allTags.filter(t => t !== event.option.viewValue);
     this.addTagsToPost(this.selectedTags);
@@ -99,9 +91,9 @@ export class AddTagsComponent implements OnInit {
     this.tagsCtrl.setValue(null);
   }
 
+  //filter which tags to display
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.allTags.filter(fruit => fruit.toLowerCase().includes(filterValue));
   }
 }
