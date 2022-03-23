@@ -153,9 +153,6 @@ export class PopupPostComponent implements OnInit {
         this.alreadyLiked = ! this.alreadyLiked;
       });
     }
-    console.log("edit");
-    
-    console.log(this.post);
 
     this.closeDialogEmitter.emit(this.post);
   }

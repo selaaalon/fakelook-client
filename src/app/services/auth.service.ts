@@ -14,10 +14,19 @@ export class AuthService {
 
   usersArray : IUser[] = [];
 
+  userIdsAndNames : any[] = [];
+
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.usersUrl);
+  }
+
+  getUsersIdAndNames(){
+    let currentUrl = this.usersUrl + "/usernames"
+    return this.http.get<IUser[]>(currentUrl).subscribe((res)=>{
+      this.userIdsAndNames = res;
+    });
   }
 
   getUser(id : number){

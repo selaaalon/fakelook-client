@@ -35,6 +35,7 @@ export class TimelineViewComponent implements OnInit, OnChanges {
   ngOnInit(): void {
 
     this.getAllPosts();
+    console.log(this.authService.userIdsAndNames);
     
     // this.postService.createdNewPost.subscribe((item)=>{
     //   this.postsArray.push(item);
@@ -48,7 +49,7 @@ export class TimelineViewComponent implements OnInit, OnChanges {
       // this.postsArray = posts.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
       
       this.postsArray = [...posts];
-      console.log(this.postsArray);
+      // console.log(this.postsArray);
       this.sortArray();
       this.cd.detectChanges();
     },
@@ -74,15 +75,15 @@ export class TimelineViewComponent implements OnInit, OnChanges {
   }
 
   close(post : IPost){
-    let newPostsArr = this.postsArray;
+    // let newPostsArr = this.postsArray;
 
-    let tempPost = this.postsArray.find(p => p.id == post.id);
-    let idx = this.postsArray?.indexOf(tempPost!);
+    // let tempPost = this.postsArray.find(p => p.id == post.id);
+    // let idx = this.postsArray?.indexOf(tempPost!);
 
-    newPostsArr[idx] = post;
-    this.postsArray = newPostsArr;
-    console.log(newPostsArr);
-    this.cd.detectChanges();
+    // newPostsArr[idx] = post;
+    // this.postsArray = newPostsArr;
+    // console.log(newPostsArr);
+    // this.cd.detectChanges();
     //this.router.navigate(['/main-page/timeline']);
     this.showDialog = false;
   }

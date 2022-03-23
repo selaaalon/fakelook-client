@@ -102,7 +102,6 @@ export class EditPostComponent implements OnInit {
     if(this.itagArr.length > 0 && this.itagArr != this.post.tags){
       this.post.tags = this.itagArr;
     }
-    console.log(this.post);
     this.postService.updatePost(this.post.id!, this.post).subscribe(()=>{
       //console.log(this.post);
       this.editEvent.emit();

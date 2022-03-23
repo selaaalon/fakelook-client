@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit,OnChanges {
+export class PostComponent implements OnInit {
 
   // @Input() post : IPost = {imageSorce : "", description : "", x_Position : 0, y_Position : 0, 
   //   z_Position : 0, date : new Date(Date.now()), userId : 0};
@@ -27,16 +27,7 @@ export class PostComponent implements OnInit,OnChanges {
   
 
 
-
-  constructor(private authService : AuthService) { }
-  ngOnChanges(changes: SimpleChanges): void {
-   console.log(changes);
-   
-  }
-
-
   loadPostData(){
-    console.log(this.post);
     
     this.imgSrc = this.post.imageSorce;
     this.desc = this.post.description;

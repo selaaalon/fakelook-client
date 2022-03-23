@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IPost } from 'src/app/models/IPost';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main-page',
@@ -12,9 +13,10 @@ export class MainPageComponent implements OnInit {
 
   clickedMenu = false;
 
-  constructor(private router : Router) { }
+  constructor(private router : Router, private authService : AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getUsersIdAndNames();
   }
 
   
