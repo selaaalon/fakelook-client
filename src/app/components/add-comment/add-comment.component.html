@@ -8,7 +8,6 @@
                       #autosize="cdkTextareaAutosize"
                       cdkAutosizeMinRows="1"
                       cdkAutosizeMaxRows="5"
-                      (input)="addCom($event)"
                       ></textarea>
         </mat-form-field>
         <app-tag-people class="tags" (click)="stopPropogation()" placeholder="@TagUsers" (addTaggedUsersToPostEvent)="addTaggedUsers($event)"></app-tag-people>

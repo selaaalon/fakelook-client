@@ -2,17 +2,9 @@
 <div class="main-container">
 
         <div class="btns">
-            
-            <!-- <button mat-stroked-button (click)="popupAddPost = !popupAddPost">Add post</button> -->
             <button mat-mini-fab color="primary" (click)="popupAddPost = !popupAddPost">
                 <mat-icon>add_circle_outline</mat-icon>
             </button>
-
-            <!-- <button mat-mini-fab color="primary" (click)="popupAddPost = !popupAddPost">
-                <mat-icon>supervisor_account</mat-icon>
-            </button> -->
-            <!-- <button mat-stroked-button (click)="popupAddPost = !popupAddPost">Friends</button> -->
-            
         </div>
 
         <app-add-post (addedPost)="addPost($event)" *ngIf="popupAddPost"></app-add-post>
@@ -21,9 +13,6 @@
 
             <h3>Filter by:</h3>
             <app-date-filter (onFormGroupChange)="onFormGroupChangeEvent($event)"></app-date-filter>
-            <!-- <div>
-                From : <input type="date"> To : <input type="date">
-            </div> -->
             <div>
                 <app-tag-people placeholder="Publishers" (addTaggedUsersToPostEvent)="addPublishers($event)"></app-tag-people>
             </div>
@@ -39,9 +28,7 @@
                 <button color="primary" mat-stroked-button (click)="done()">Done</button>
                 <button color="primary" mat-stroked-button (click)="reset()">Reset</button>
             </div>
-            
     
         </div>
-    <!-- </div> -->
 
 </div>

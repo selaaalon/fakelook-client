@@ -14,10 +14,6 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  // ngOnDestroy(){
-  //   this.createdNewComment.unsubscribe();
-  // }
-
   getCommentsByPost(id : number){
     let currentUrl = this.commentsUrl + "/post" + "/" + id;
     let token = sessionStorage.getItem('token');
@@ -28,7 +24,6 @@ export class CommentService {
   }
 
   addComment(newPost : IComment) : Observable<IComment> {
-    console.log("err");
     let token = sessionStorage.getItem('token');
     let httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`})

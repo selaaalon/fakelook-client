@@ -38,8 +38,6 @@ export class TagPeopleComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getAllUsers().subscribe((users) => {
       users.forEach((user)=>{
-        //this.allUsersNames.push(user.userName);
-        //this.allUsersId.push(user.id!);
         this.displayUsers.push(user.userName);
       })
       this.filteredUsers = this.usersCtrl.valueChanges.pipe(
@@ -67,7 +65,6 @@ export class TagPeopleComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-
     // Add our user
     let index = this.displayUsers.indexOf(value);
     if (value && index > -1 && this.taggedUsers.indexOf(value) == -1) {
@@ -78,7 +75,6 @@ export class TagPeopleComponent implements OnInit {
 
     // Clear the input value
     event.chipInput!.clear();
-
     this.usersCtrl.setValue(null);
 
     
@@ -108,10 +104,9 @@ export class TagPeopleComponent implements OnInit {
     
   }
 
-
+  //decide which users to display
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.displayUsers.filter(user => user.toLowerCase().includes(filterValue));
   }
 }
