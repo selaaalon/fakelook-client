@@ -29,6 +29,7 @@ export class AddPostComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
 
   addPostWithLocation(){
     navigator.geolocation.getCurrentPosition(
@@ -41,6 +42,7 @@ export class AddPostComponent implements OnInit {
         console.log(err);
       });
   }
+
 
   addImg(event : any){
     this.imgFile = event.target.files[0];
@@ -61,9 +63,11 @@ export class AddPostComponent implements OnInit {
     this.desc = newDescription;
   }
 
+
   addTags(newTags : string){
     this.tags = newTags;
   }
+
 
   addTaggedPeopleToPost(){
     let tagsArr = this.tagPeople.split(", ");
@@ -75,6 +79,7 @@ export class AddPostComponent implements OnInit {
     })
   }
 
+
   addTagsToPost(){
     let tagsArr = this.tags.split(", ");
     tagsArr.forEach((tag) => {
@@ -85,12 +90,13 @@ export class AddPostComponent implements OnInit {
     })
   }
 
+
   addTaggedUsers(newTaggedUsers : string){
     this.tagPeople = newTaggedUsers;
   }
 
+
   addPost(x : number, y : number, z : number){
-    
     if(this.imgSrc){
       this.addTagsToPost();
       this.addTaggedPeopleToPost();
