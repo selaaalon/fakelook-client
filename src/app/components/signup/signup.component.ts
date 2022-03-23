@@ -64,7 +64,6 @@ export class SignupComponent implements OnInit {
       let newUser = {email : this.signupForm.value.email ,name: this.signupForm.value.fullName ,
         userName : this.signupForm.value.userName, password : this.signupForm.value.password1, 
         BirthDate : this.signupForm.value.birthDate, address : this.signupForm.value.address, job : this.signupForm.value.job}
-        console.log(newUser.BirthDate);
         if(newUser.BirthDate === ""){
           newUser.BirthDate = new Date();
         }

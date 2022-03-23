@@ -43,7 +43,7 @@ export class AddTagsComponent implements OnInit {
     })
   }
 
-
+  
   addTagsToPost(allTagsToPost: string[]) {
     let tagsToPostConcat = "";
     allTagsToPost.forEach((tag) => {
@@ -58,7 +58,7 @@ export class AddTagsComponent implements OnInit {
     this.allTags.splice(deleteIndex,1);
   }
   
-  
+
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     this.selectedTags.push(value);

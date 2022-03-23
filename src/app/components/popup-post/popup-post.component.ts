@@ -43,10 +43,13 @@ export class PopupPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsersName();
-    this.parseJwt();
+    this.userId = this.authService.getCurrentUserId();
+    
+    //if the current user wrote this post, he can edit it.
     if(this.userId === this.post.userId){
       this.editBtn = true;
     }
+
     this.commentService.getCommentsByPost(this.post.id!).subscribe((comments) => {
       this.allComments = comments;
       this.allComments.forEach((comment)=>{
@@ -54,7 +57,6 @@ export class PopupPostComponent implements OnInit {
       })
     });
 
-    
     this.commentService.createdNewComment.subscribe((comment)=>{
       this.allComments.push(comment);
     })
@@ -67,13 +69,14 @@ export class PopupPostComponent implements OnInit {
 
   getAllLikes(){
     this.likesService.getLikesByPost(this.post.id!).subscribe((likes) => {
-      this.parseJwt();
       this.allLikes = likes;
       let numActiveLikes = 0;
       this.allLikes.forEach((like) => {
         if(like.isActive){
           numActiveLikes += 1;
         }
+
+        //check if current user already liked this post, and show it accordingly
         if(this.userId == like.userId){
           this.likeId = like.id!;
           this.isActive = like.isActive;
@@ -97,18 +100,6 @@ export class PopupPostComponent implements OnInit {
     }
   }
 
-  parseJwt() {
-    let token = sessionStorage.getItem('token')!;
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    this.userId = parseInt(JSON.parse(jsonPayload)["UserId"]);
-    return JSON.parse(jsonPayload)["UserId"];
-   }
-
   addLike(){
     event?.stopPropagation();
     if(this.alreadyLiked){
@@ -123,14 +114,10 @@ export class PopupPostComponent implements OnInit {
 
   addComment(){
     event?.stopPropagation();
-    // this.commentService.createdNewComment.next()
     this.addCommentFlag = !this.addCommentFlag;
   }
 
   addItem(comment: IComment) {
-
-    // let tags = 
-    // let newComment = {content : comment, postId : this.post.id!} as IComment;
     this.commentService.addComment(comment).subscribe(() => {
       this.commentService.createdNewComment.next(comment);
       this.addCommentFlag = false;
@@ -147,7 +134,7 @@ export class PopupPostComponent implements OnInit {
   finishEdit(){
     event?.stopPropagation();
     this.edit = false;
-    // this.close();
+    this.close();
   }
 
 

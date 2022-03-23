@@ -15,13 +15,4 @@ export class MapViewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // showFullPost(post: IPost): void {
-  //   this.showDialog = true;
-  //   this.selectedPost = post;
-  // }
-
-  // closeDialog(): void {
-  //   this.showDialog = false;
-  // }
-
 }

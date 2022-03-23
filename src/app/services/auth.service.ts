@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../models/IUser';
 import { KeyValue } from '@angular/common';
-// import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -34,14 +33,19 @@ export class AuthService {
     return -1;
   }
 
-  
+  getCurrentUserId() {
+    let userId = 0;
+    let token = sessionStorage.getItem('token')!;
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 
-  // get(){
-  //   this.userIdsAndNames.push({1:"hu"})
-  //   if(this.userIdsAndNames){
-      
-  //   }
-  // }
+    userId = parseInt(JSON.parse(jsonPayload)["UserId"]);
+    return userId;
+   }
+
 
   getAllUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.usersUrl);
@@ -52,7 +56,6 @@ export class AuthService {
     
     return this.http.get<KeyValue<number,string>[]>(currentUrl).subscribe((res)=>{
       this.userIdsAndNames = res;
-      // this.get();
     });
     
   }
@@ -73,12 +76,6 @@ export class AuthService {
     };
     return this.http.post<IUser>(this.usersUrl, newUser, httpOptions);
   }
-
-  // changePassword(newPassword : string){
-  //   // const currentUrl = `${this.usersUrl}/login`;
-  //   let user = {}
-  //   return this.http.put<any>(this.usersUrl, user);
-  // }
 
   editUser(userName : string, password : string){
     return this.http.patch(this.usersUrl, {userName, password});

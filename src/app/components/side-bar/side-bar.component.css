@@ -1,23 +1,17 @@
 .main-container{
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
     text-align: center;
-
-    /* row-gap: 5px; */
     position: fixed;
     left: 0;
     height: 100%;
     width: 15%;
     z-index: 2;
-    /* background-color: aliceblue; */
     background-color: whitesmoke;
     justify-content: space-around;
-    /* border-right:solid 0.5em rgb(206, 205, 205) ; */
 }
 
 .btns{
-
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -27,15 +21,6 @@
 .btns > * :hover{
     border: 1px solid black;
 }
-
-/* button:hover{
-    border: 1px solid black;
-} */
-
-/* .publish-and-friends > * {
-    justify-self: center;
-    align-items: center;
-} */
 
 app-add-post{
     grid-row: 2/3;
@@ -49,19 +34,12 @@ input{
 .filters{
     display: flex;
     flex-direction: column;
-
-    /* row-gap: 15px; */
 }
 
 h3{
     margin-top: 15%;
     margin-bottom: 1%;
 }
-
-/* .filters-btn{
-    display: inline;
-} */
-
 
 .blue{
     color: #3F51B5;

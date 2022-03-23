@@ -18,7 +18,6 @@ export class EditPostComponent implements OnInit {
   imgName = "";
   tagPeople = "";
   tagPeopleId : any[] = [];
-  // tags :string[] = [];
   tags = "";
   itagArr : ITag[] = [];
   desc = "";
@@ -26,11 +25,9 @@ export class EditPostComponent implements OnInit {
   btnClass = "custom-file-upload";
 
   constructor(private postService : PostService) {
-    // this.desc = this.post?.description;
   }
 
   ngOnInit(): void {
-    //console.log(this.post);
   }
 
   addImg(event : any){
@@ -49,17 +46,14 @@ export class EditPostComponent implements OnInit {
   }
 
   addDescription(newDescription: string){
-    // event?.stopPropagation();
     this.desc = newDescription;
   }
 
   addTags(newTags : string){
-    // event?.stopPropagation();
     this.tags = newTags;
   }
 
   addTaggedUsers(newTaggedUsers : string){
-    // event?.stopPropagation();
     this.tagPeople = newTaggedUsers;
   }
 
@@ -67,55 +61,33 @@ export class EditPostComponent implements OnInit {
     event?.stopPropagation();
   }
 
-  addTaggedPeopleToPost(){
-    let tagsArr = this.tagPeople.split(", ");
-    tagsArr.forEach((tag) => {
-      if(tag){
-        let taggedId = {userId : parseInt(tag)}
-        this.tagPeopleId.push(taggedId);
-      }
-    })
-  }
-
-  addTagsToPost(){
-    let tagsArr = this.tags.split(", ");
-    tagsArr.forEach((tag) => {
-      if(tag){
-        let itag = {content : tag} as ITag;
-        this.itagArr.push(itag);
-      }
-    })
-  }
 
   edit(){
-    this.addTagsToPost();
-    this.addTaggedPeopleToPost()
+    this.itagArr = this.postService.addTagsToPost(this.tags);
+    this.tagPeopleId = this.postService.addTaggedPeopleToPost(this.tagPeople);
+
+    //change img in the post if the user choose changing it
     if(this.imgSrc && this.imgSrc!== this.post.imageSorce){
       this.post.imageSorce = this.imgSrc;
     }
+
+    //change description in the post if the user choose changing it
     if(this.desc && this.desc != this.post.description){
       this.post.description = this.desc;
     }
+
+    //change tagged users in the post if the user choose changing it
     if(this.tagPeopleId.length > 0 && this.tagPeopleId != this.post.userTaggedPost){
       this.post.userTaggedPost = this.tagPeopleId;
     }
+
+    //change tags in the post if the user choose changing it
     if(this.itagArr.length > 0 && this.itagArr != this.post.tags){
       this.post.tags = this.itagArr;
     }
     this.postService.updatePost(this.post.id!, this.post).subscribe(()=>{
-      //console.log(this.post);
       this.editEvent.emit();
     })
-    // .subscribe(()=>{
-    //   console.log(this.post);
-    //   this.editEvent.emit();
-    // },
-    // (error) => console.log(error));
-    
-    // let imgSrc = this.imgSrc;
-    // let desc = this.desc;
-
-
   }
 
   cancel(){

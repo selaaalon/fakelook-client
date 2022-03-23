@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, NgZone, OnInit, Output, ViewChild } fro
 import { take } from 'rxjs';
 import { IComment } from 'src/app/models/IComment';
 import { ITag } from 'src/app/models/ITag';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-add-comment',
@@ -22,7 +23,7 @@ export class AddCommentComponent implements OnInit {
   taggedUsers : any[]= [];
   itags : ITag[] = [];
 
-  constructor(private _ngZone: NgZone) { }
+  constructor(private _ngZone: NgZone, private postService : PostService) { }
 
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
@@ -31,28 +32,19 @@ export class AddCommentComponent implements OnInit {
     this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
   }
 
-  // addNewComment(value: string) {
-  //   this.addCommentEvent.emit(value);
-  // }
-
   stopPropogation(){
     event?.stopPropagation();
-    // console.log(this.comment);
   }
 
   addComment(comment: string){
     event?.stopPropagation();
-    console.log(this.itags);
-    console.log(this.taggedUsers);
 
-    this.addTagsToComment();
-    this.addTaggedUsersToComment();
-
+    this.itags = this.postService.addTagsToPost(this.tags);
+    this.taggedUsers = this.postService.addTaggedPeopleToPost(this.tagPeople);
 
     let newComment = {content : comment, userTaggedComment : this.taggedUsers, tags : this.itags, postId : this.postId} as IComment;
     this.addCommentEvent.emit(newComment);
-    // console.log(this.tags);
-    // console.log(this.taggedUsers);
+
   }
 
   closeTag(){
@@ -63,60 +55,13 @@ export class AddCommentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addCom(value : any){
-    if(value.data === "@"){
-      this.users = true;
-    }
-    console.log(this.users);
-  }
-
   addTaggedUsers(newTaggedUsers : string){
     this.tagPeople = newTaggedUsers;
-  }
-
-
-
-  addTaggedUsersToComment(){
-    let tagsArr = this.tagPeople.split(", ");
-    tagsArr.forEach((tag) => {
-      if(tag){
-        let taggedId = {userId : parseInt(tag)}
-        this.taggedUsers.push(taggedId);
-      }
-    })
-
-    // let taggedUsersString = this.tagPeople.split(', ').filter(function(value, idx, arr){
-    //   return value
-    // });
-    // taggedUsersString.forEach((user) => {
-    //   this.taggedUsers.push(parseInt(user));
-    // })
-    // console.log(this.taggedUsers);
   }
 
   addTags(newTags: string){
     this.tags = newTags
   }
 
-  addTagsToComment(){
-    let tagsArr = this.tags.split(", ");
-    tagsArr.forEach((tag) => {
-      if(tag){
-        let itag = {content : tag} as ITag;
-        this.itags.push(itag);
-      }
-    })
-    // console.log(this.tags);
-  }
-
-  // addTagsToPost(){
-  //   let tagsArr = this.tags.split(", ");
-  //   tagsArr.forEach((tag) => {
-  //     if(tag){
-  //       let itag = {content : tag} as ITag;
-  //       this.itagArr.push(itag);
-  //     }
-  //   })
-  // }
 
 }

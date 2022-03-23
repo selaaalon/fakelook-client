@@ -11,22 +11,17 @@ import { PostService } from 'src/app/services/post.service';
   templateUrl: './timeline-view.component.html',
   styleUrls: ['./timeline-view.component.css']
 })
-export class TimelineViewComponent implements OnInit, OnChanges {
-
-  
+export class TimelineViewComponent implements OnInit {
 
   postsArray = new Array<IPost>();
   showDialog = false;
   selectedPost!: IPost;
 
-   postsObs = new Observable<IPost[]>();
-  
+  postsObs = new Observable<IPost[]>();
 
-  constructor(private postService : PostService, private authService : AuthService, private router : Router,public cd: ChangeDetectorRef) { }
-  
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
+  constructor(private postService : PostService, private authService : AuthService, 
+    private router : Router,public cd: ChangeDetectorRef) { }
+
 
   ngOnInit(): void {
     this.getAllPosts();
@@ -37,13 +32,10 @@ export class TimelineViewComponent implements OnInit, OnChanges {
     this.postService.getAllPosts().subscribe((posts)=>{
       
       this.postsArray = [...posts];
-      // console.log(this.postsArray);
       this.sortArray();
       this.cd.detectChanges();
     },
     (error) => {
-      console.log("stuck");
-      console.log(error);
       this.router.navigate([""])
     });
 
@@ -59,16 +51,6 @@ export class TimelineViewComponent implements OnInit, OnChanges {
   }
 
   close(post : IPost){
-    // let newPostsArr = this.postsArray;
-
-    // let tempPost = this.postsArray.find(p => p.id == post.id);
-    // let idx = this.postsArray?.indexOf(tempPost!);
-
-    // newPostsArr[idx] = post;
-    // this.postsArray = newPostsArr;
-    // console.log(newPostsArr);
-    // this.cd.detectChanges();
-    //this.router.navigate(['/main-page/timeline']);
     this.showDialog = false;
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, of, Subject, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IPost } from '../models/IPost';
+import { ITag } from '../models/ITag';
 
 @Injectable({
   providedIn: 'root'
@@ -78,5 +79,29 @@ export class PostService {
     return this.postsSubject.asObservable();
   }
 
+
+  addTaggedPeopleToPost(tagPeople : string){
+    let tagPeopleId : any[]= []
+    let tagsArr = tagPeople.split(", ");
+    tagsArr.forEach((tag) => {
+      if(tag){
+        let taggedId = {userId : parseInt(tag)}
+        tagPeopleId.push(taggedId);
+      }
+    })
+    return tagPeopleId;
+  }
+
+  addTagsToPost(tags : string){
+    let itagArr : ITag[] = [];
+    let tagsArr = tags.split(", ");
+    tagsArr.forEach((tag) => {
+      if(tag){
+        let itag = {content : tag} as ITag;
+        itagArr.push(itag);
+      }
+    })
+    return itagArr;
+  }
   
 }
