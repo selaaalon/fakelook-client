@@ -27,11 +27,8 @@ export class AddTagsComponent implements OnInit {
   @ViewChild('tagsInput') tagsInput!: ElementRef<HTMLInputElement>;
 
   constructor(private tagService : TagsService) {
-    // this.filteredTags = this.tagsCtrl.valueChanges.pipe(
-    //   startWith(null),
-    //   map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allTags.slice())),
-    // );
   }
+
 
   ngOnInit(): void {
     this.tagService.getAllTags(sessionStorage.getItem('token')!).subscribe((tags) => {
@@ -46,6 +43,7 @@ export class AddTagsComponent implements OnInit {
     })
   }
 
+  
   addTagsToPost(allTagsToPost: string[]) {
     let tagsToPostConcat = "";
     allTagsToPost.forEach((tag) => {
@@ -54,11 +52,13 @@ export class AddTagsComponent implements OnInit {
     this.addTagsToPostEvent.emit(tagsToPostConcat.trim());
   }
 
+
   removeTags(value : string){
     let deleteIndex = this.allTags.indexOf(value) 
     this.allTags.splice(deleteIndex,1);
   }
   
+
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     this.selectedTags.push(value);

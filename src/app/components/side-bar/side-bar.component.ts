@@ -24,8 +24,6 @@ export class SideBarComponent implements OnInit {
   maxDateFilter = "";
 
   formCheck :any  = '' 
-
-  // @Input() placeholderToTagPeople = 'Tagged Users'; 
   
   constructor(private router : Router, private datepipe: DatePipe, private postService : PostService) { }
 
@@ -37,21 +35,6 @@ export class SideBarComponent implements OnInit {
       this.popupAddPost = false;
     }
   }
-
-  // addUsers(newTaggedUsers : string, temp : string){
-  //   let tagPeople = newTaggedUsers.split(", ");
-  //   temp =  "&taggedUsers=";
-  //   for (let index = 0; index < tagPeople.length; index++) {
-  //     const userId = tagPeople[index];
-  //     if(userId){
-  //       if(index == tagPeople.length - 1){
-  //         temp = temp + userId;
-  //       }
-  //       else temp = temp + userId + temp;
-  //     }
-  //   }
-
-  // }
 
   addTaggedUsers(newTaggedUsers : string){
     this.taggedUsersFilter = newTaggedUsers;
@@ -74,7 +57,6 @@ export class SideBarComponent implements OnInit {
       }
     }
     let replaced = prefix.split(' ').join("%20");
-    // console.log(replaced);
     return replaced;
   }
 
@@ -103,7 +85,6 @@ export class SideBarComponent implements OnInit {
   
   public onFormGroupChangeEvent(_event : any) {
     this.formCheck = _event;
-    // console.error(_event, this.formCheck['controls'])
   }
 
   addFilters(){
@@ -128,6 +109,8 @@ export class SideBarComponent implements OnInit {
     }
     return filter;
   }
+
+
   reloadCurrentRoute() {
     let currentUrl = this.router.url;
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
@@ -147,9 +130,6 @@ export class SideBarComponent implements OnInit {
     this.postService.getFilteredPosts(filter).subscribe(()=>{
       this.reloadCurrentRoute();
     });
-    
-    // this.router.navigate(['main-page']);
-    
   }
 
 }

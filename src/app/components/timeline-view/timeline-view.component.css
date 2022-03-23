@@ -1,14 +1,6 @@
-/* app-popup-post{ */
-    /* position: relative; */
-    /* background-color: rgba(0, 0, 0, 0.8); */
-
-/* } */
-
 .all-posts{
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
-    /* left: 50%; */
     right: 50%;
 }
