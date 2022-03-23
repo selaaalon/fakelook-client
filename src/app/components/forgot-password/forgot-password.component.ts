@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,12 +15,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  // email = "";
-  // userName = "";
-  // password1 = "";
-  // password2 = "";
   authPassword = true;
   error = "";
+  loading = false;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   forgotPasswordForm = this.fb.group({
     userName: ['', Validators.required],
@@ -23,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
     password2: ['', Validators.required],
   });
 
-  constructor(private authService : AuthService, private router : Router, private fb : FormBuilder) { }
+  constructor(private authService : AuthService, private router : Router, private fb : FormBuilder, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.forgotPasswordForm.setValidators(this.checkPasswords);
@@ -50,22 +54,47 @@ export class ForgotPasswordComponent implements OnInit {
 
 
   submit(){
+    this.loading = true;
     if(this.checkFields()){
       if(this.validatePassword()){
         this.authService.editUser(this.forgotPasswordForm.value.userName, this.forgotPasswordForm.value.password1).subscribe(()=>{
-          console.log("I did it!");
+          this.openSnackBar();
+          setTimeout(() => {
+            this.router.navigate([""]);
+            this.loading = false;
+          }, 1000);
         },
-        (error)=>console.log(error));
-        this.router.navigate([""]);
+        (error)=>{
+          setTimeout(() => {
+            this.loading = false;
+            this.openErrorSnackBar(error.error.detail)
+            console.log(error)
+          }, 1000);
+        });
+      } else {
+        this.loading = false;
       }
+    } else {
+      this.loading = false;
     }
-    
-    // this.authService.editUser(this.userName, this.password1).subscribe(()=>{
-    //   console.log("I did it!");
-    // },
-    // (error)=>console.log(error));
+  }
 
-    // this.router.navigate([""]);
+  openSnackBar(){
+    this._snackBar.open('Password Updated Successfully', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 800,
+      panelClass: ['blue-snackbar']
+    });
+  }
+
+  openErrorSnackBar(error: string){
+    this._snackBar.open(error, '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000,
+      panelClass: ['red-snackbar']
+    });
   }
 
 }

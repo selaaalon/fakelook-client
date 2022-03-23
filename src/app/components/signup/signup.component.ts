@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -11,17 +16,13 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignupComponent implements OnInit {
 
   authPassword = true;
-  // email = "";
-  // fullName = "";
-  // userName = "";
-  // password1 = "";
-  // password2 = "";
-  // birthDate = undefined;
-  // address = "";
-  // job = "";
+  loading = false;
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   signupForm = this.fb.group({
-    email: [''],
+    email: ['', Validators.email],
     fullName: [''],
     userName: ['', Validators.required],
     password1: ['', Validators.required],
@@ -31,7 +32,7 @@ export class SignupComponent implements OnInit {
     job: [''],
   });
 
-  constructor(private authService : AuthService, private router : Router, private fb : FormBuilder) { }
+  constructor(private authService : AuthService, private router : Router, private fb : FormBuilder, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.signupForm.setValidators([this.checkPasswords, this.checkUserName]);
@@ -55,32 +56,39 @@ export class SignupComponent implements OnInit {
 
   checkUserName: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 
     let userName = group.get('userName')!.value;
-    // let confirmPass = group.get('password2')!.value
     return userName.indexOf(' ') === -1  ? null : { validUserName: true }
   }
-  // resetForm() {
-  //   this.authPassword = true;
-  //   this.email = "";
-  //   this.fullName = "";
-  //   this.userName = "";
-  //   this.password1 = "";
-  //   this.password2 = "";
-  //   this.birthDate = undefined;
-  //   this.address = "";
-  //   this.job = "";
-  // }
 
   submit(){
-    // if(this.validatePassword()){
+    this.loading = true;    
       let newUser = {email : this.signupForm.value.email ,name: this.signupForm.value.fullName ,
         userName : this.signupForm.value.userName, password : this.signupForm.value.password1, 
         BirthDate : this.signupForm.value.birthDate, address : this.signupForm.value.address, job : this.signupForm.value.job}
+        console.log(newUser.BirthDate);
+        if(newUser.BirthDate === ""){
+          newUser.BirthDate = new Date();
+        }
         
       this.authService.signup(newUser).subscribe(()=>{
-        this.signupForm.reset();
+        setTimeout(() => {
+          this.router.navigate(['']);
+          this.loading = false;
+          this.signupForm.reset();
+        }, 1000);  
+      }, (error) => {
+        this.loading = false;
+        this.openErrorSnackBar(error.error.detail);
+        console.log(error);
       });
-    // }
+  }
 
+  openErrorSnackBar(error: string){
+    this._snackBar.open(error, '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000,
+      panelClass: ['red-snackbar']
+    });
   }
 
 }

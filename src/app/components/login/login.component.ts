@@ -3,6 +3,11 @@ import { IUser } from 'src/app/models/IUser';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -12,21 +17,23 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 export class LoginComponent implements OnInit {
 
   usersArray = new Array<IUser>();
-  // name = "";
-  // password = "";
   existUser = false;
   rememberMe = false;
   missingUserName = false;
   missingPassword = false;
   error = "";
+  loading = false;
 
   loginForm = this.fb.group({
     userName: ['', Validators.required],
     formPassword: ['', Validators.required],
   });
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(private authService : AuthService, private router : Router, private fb: FormBuilder) { }
+
+  constructor(private authService : AuthService, private router : Router, private fb: FormBuilder, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -48,36 +55,32 @@ export class LoginComponent implements OnInit {
     return false;
   }
 
-  // parseJwt (token : string) {
-  //   var base64Url = token.split('.')[1];
-  //   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  //   var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-  //       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  //   }).join(''));
-
-  //   return JSON.parse(jsonPayload)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
-  //  }
-
   login(){
+    this.loading = true;
     this.error = "";
     if(this.checkMissingFields()){
+      this.loading = false;
       return;
     }
     let user = {userName : this.loginForm.value.userName, password : this.loginForm.value.formPassword};
     this.authService.login(user).subscribe((res) => {
+          this.openSnackBar();
           this.setToken(res.token);
           console.log("logged to the user");
           console.log(res.token);
-          // console.log(this.parseJwt(res.token));
-          this.router.navigate(["/main-page"]);
-          // console.log(this.parseJwt(res.token));
+          setTimeout(() => {
+            this.loading = false;
+            this.router.navigate(["/main-page"]);
+          }, 1000)
+          
         }, 
         (error) => {
-          this.error = error.error.detail;
-          console.log(error.error.detail)
+          setTimeout(() => {
+            this.loading = false;
+            this.openErrorSnackBar(error.error.detail);
+            console.log(error.error.detail)
+          }, 500);
         });
-        // this.name = "";
-        // this.password = "";
   }
 
   private getToken(): string | null {
@@ -93,35 +96,29 @@ export class LoginComponent implements OnInit {
   }
 
   checkMissingFields(){
-    // let isMissing = false;
-    // if(!this.loginForm.value.userName){
-    //   this.missingUserName = true;
-    //   isMissing = true;
-    // }
-    // else this.missingUserName = false;
-    // if(!this.loginForm.value.formPassword){
-    //   this.missingPassword = true;
-    //   isMissing = true;
-    // }
-    // else this.missingPassword = false;
-    // return isMissing;
-    
     return(!this.loginForm.value.userName || !this.loginForm.value.formPassword);
   }
 
   signup(){
-    // if(!this.name){
-    //   this.missingUserName = true;
-    // }
-    // else this.missingUserName = false;
-    // if(!this.password){
-    //   this.missingPassword = true;
-    // }
-    // else this.missingPassword = false;
-    // if(this.checkMissingFields()){
-    //   return;
-    // }
     this.router.navigate(["/signup"]);
+  }
+
+  openSnackBar(){
+    this._snackBar.open('Login Successfully', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 800,
+      panelClass: ['blue-snackbar']
+    });
+  }
+
+  openErrorSnackBar(error: string){
+    this._snackBar.open(error, '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000,
+      panelClass: ['red-snackbar']
+    });
   }
 
 }

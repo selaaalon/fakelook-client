@@ -9,7 +9,6 @@
             <div class="form-input-container">
                 <mat-form-field> 
                     <mat-label>Username</mat-label>
-                    <!-- <input type="text" matInput [(ngModel)]="name" formControlName="userName"> -->
                     <input type="text" matInput formControlName="userName">
                     <mat-icon matSuffix class="input-icon">person</mat-icon>
                 </mat-form-field>
@@ -18,7 +17,6 @@
             <div class="form-input-container">
                 <mat-form-field>
                     <mat-label>Password</mat-label>
-                    <!-- <input type="password" matInput [(ngModel)]="password" formControlName="formPassword"> -->
                     <input type="password" matInput formControlName="formPassword">
                     <mat-icon matSuffix class="input-icon">lock</mat-icon>
                 </mat-form-field>
@@ -50,3 +48,5 @@
     </div>
     
 </div>
+
+<app-loading-modal class="modal" *ngIf="loading"></app-loading-modal>

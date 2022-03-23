@@ -67,44 +67,12 @@
             <mat-error *ngIf="signupForm.hasError('validUserName')">
                 UserName must not contains spaces
             </mat-error>
-            <!-- <div>
-                <label>Email: </label>
-                <input type="text" [(ngModel)]="email">
-            </div>
-            <div>
-                <label>Full Name: </label>
-                <input type="text" [(ngModel)]="fullName">
-            </div>
-            <div>
-                <label>User Name: </label>
-                <input type="text" [(ngModel)]="userName">
-            </div>
-            <div>
-                <label>Password: </label>
-                <input type="password" [(ngModel)]="password1">
-            </div>
-            <div>
-                <label>Re-enter password: </label>
-                <input type="password" [(ngModel)]="password2">
-                <div *ngIf="!authPassword">Your passwords don't match</div>
-            </div>
-            <div>
-                <label>BirthDate: </label>
-                <input type="date" [(ngModel)]="birthDate">
-            </div>
-            <div>
-                <label>Address: </label>
-                <input type="text" [(ngModel)]="address">
-            </div>
-            <div>
-                <label>Job: </label>
-                <input type="text" [(ngModel)]="job">
-            </div> -->
-            <button mat-raised-button color="primary" (click)="submit()">Sign Up</button>
-        
+            <button mat-raised-button color="primary" (click)="submit()">Sign Up</button>     
         </form>
     </div>
     <div class="side-container">
 
     </div>
 </div>
+
+<app-loading-modal class="modal" *ngIf="loading"></app-loading-modal>
