@@ -38,6 +38,9 @@ import { AngularCesiumModule, AngularCesiumWidgetsModule } from 'angular-cesium'
 import { DatePipe } from '@angular/common';
 import {MatDialogModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { LoadingModalComponent } from './components/loading-modal/loading-modal.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -61,7 +64,8 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
     AddDescriptionComponent,
     AddCommentComponent,
     MapComponent,
-    EditPostComponent
+    EditPostComponent,
+    LoadingModalComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,9 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
     AngularCesiumWidgetsModule,
     HttpClientModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [DatePipe, {
     provide : MatDialogRef,
