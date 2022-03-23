@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../models/IUser';
+import { KeyValue } from '@angular/common';
 // import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class AuthService {
 
   private usersUrl = "https://localhost:44349/Users";
@@ -18,15 +21,40 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  getIdByUserName(value : string) {
+    let ids = Object.keys(this.userIdsAndNames);
+    if(ids){
+      for (let index = 0; index < ids.length; index++) {
+        const id = ids[index];
+        if(this.userIdsAndNames[parseInt(id)] == value){
+          return id;
+        }
+      }
+    }
+    return -1;
+  }
+
+  
+
+  // get(){
+  //   this.userIdsAndNames.push({1:"hu"})
+  //   if(this.userIdsAndNames){
+      
+  //   }
+  // }
+
   getAllUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.usersUrl);
   }
 
   getUsersIdAndNames(){
-    let currentUrl = this.usersUrl + "/usernames"
-    return this.http.get<IUser[]>(currentUrl).subscribe((res)=>{
+    let currentUrl = this.usersUrl + "/usernames";
+    
+    return this.http.get<KeyValue<number,string>[]>(currentUrl).subscribe((res)=>{
       this.userIdsAndNames = res;
+      // this.get();
     });
+    
   }
 
   getUser(id : number){

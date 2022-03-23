@@ -38,8 +38,8 @@ export class TagPeopleComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getAllUsers().subscribe((users) => {
       users.forEach((user)=>{
-        this.allUsersNames.push(user.userName);
-        this.allUsersId.push(user.id!);
+        //this.allUsersNames.push(user.userName);
+        //this.allUsersId.push(user.id!);
         this.displayUsers.push(user.userName);
       })
       this.filteredUsers = this.usersCtrl.valueChanges.pipe(
@@ -51,33 +51,15 @@ export class TagPeopleComponent implements OnInit {
 
   addTaggedUsersToPost(allTaggedUsers : string[]){
     let taggedUsersToPostConcat = "";
-
-    // for (let index = 0; index < allTaggedUsers.length; index++) {
-    //   const user = allTaggedUsers[index];
-    //   let idx = this.allUsersNames.indexOf(user);
-    //   let taggedUserId = this.allUsersId[idx];
-    //   taggedUsersToPostConcat = taggedUsersToPostConcat + ", " + taggedUserId;
-    //   if(index == allTaggedUsers.length-1){
-    //     this.taggedUsersIds =  this.taggedUsersIds + taggedUserId
-    //   }
-    //   else this.taggedUsersIds =  this.taggedUsersIds + taggedUserId + "&taggedUsers=   "
-    // }
-    // console.log(this.taggedUsersIds);
     allTaggedUsers.forEach((user) => {
-      let index = this.allUsersNames.indexOf(user);
-      let taggedUserId = this.allUsersId[index]
-      // this.taggedUsersIds =  this.taggedUsersIds + taggedUserId + "&taggedUsers="
-      taggedUsersToPostConcat = taggedUsersToPostConcat + ", " + taggedUserId;
+      let idx = this.authService.getIdByUserName(user);
+      taggedUsersToPostConcat = taggedUsersToPostConcat + ", " + idx;
     })
-
-    // let temp = taggedUsersToPostConcat.split(", ");
-    // console.log(temp);
     this.addTaggedUsersToPostEvent.emit(taggedUsersToPostConcat.trim());
   }
 
   removeTaggedUser(value : string){
     let deleteIndex = this.displayUsers.indexOf(value) 
-    // this.allUsersId.splice(deleteIndex,1);
     this.displayUsers.splice(deleteIndex,1);
   }
 

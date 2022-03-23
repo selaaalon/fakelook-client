@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IComment } from 'src/app/models/IComment';
 import { ILike } from 'src/app/models/ILike';
 import { IPost } from 'src/app/models/IPost';
+import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { LikeService } from 'src/app/services/like.service';
 
@@ -18,6 +19,7 @@ export class PopupPostComponent implements OnInit {
   
   allComments = new Array<IComment>();
   allLikes = new Array<ILike>();
+  numLikes = 0;
 
   likeColor : string = "";
   taggedUsers = "@";
@@ -25,6 +27,9 @@ export class PopupPostComponent implements OnInit {
   userId = 0;
   likeId = 0;
   isActive = true;
+  userTaggedPost :any[] = [];
+
+  userIdsAndNames : any[] = [];
 
   alreadyLiked = false;
   addCommentFlag = false;
@@ -32,54 +37,72 @@ export class PopupPostComponent implements OnInit {
   editBtn = false;
 
 
-  constructor(private commentService : CommentService, private likesService : LikeService) { }
+  constructor(private commentService : CommentService, private likesService : LikeService, 
+    private authService : AuthService) { }
 
-  // ngOnDestroy(){
-  //   this.likesService.addingLike.unsubscribe();
-  //   this.commentService.createdNewComment.unsubscribe();
-  // }
 
   ngOnInit(): void {
+    console.log(this.post.id)
+    this.getUsersName();
     this.parseJwt();
     if(this.userId === this.post.userId){
       this.editBtn = true;
     }
     this.commentService.getCommentsByPost(this.post.id!).subscribe((comments) => {
       this.allComments = comments;
+      console.log(this.allComments)
+      this.allComments.forEach((comment)=>{
+        comment.userName = this.userIdsAndNames[comment.userId!];
+      })
     });
 
+    
     this.commentService.createdNewComment.subscribe((comment)=>{
       this.allComments.push(comment);
-      
     })
 
     this.getAllLikes();
     this.likesService.addingLike.subscribe((like)=>{
       this.allLikes.push(like);
     })
-
-
-
-    // console.log(this.post);
   }
 
   getAllLikes(){
     this.likesService.getLikesByPost(this.post.id!).subscribe((likes) => {
       this.parseJwt();
       this.allLikes = likes;
+      let numActiveLikes = 0;
       this.allLikes.forEach((like) => {
+        if(like.isActive){
+          numActiveLikes += 1;
+        }
         if(this.userId == like.userId){
           this.likeId = like.id!;
           this.isActive = like.isActive;
           if(like.isActive){
             this.alreadyLiked = true;
           }
-          
-          // this.likeColor = "primary";
-          return;
         }
       })
+      this.numLikes = numActiveLikes;
     })
+  }
+
+  getUsersName(){
+    let tagged = this.post.userTaggedPost;
+    this.userIdsAndNames = this.authService.userIdsAndNames;
+    //console.log(tagged);
+    //this.userTaggedPost = this.authService.userIdsAndNames;
+    //console.log(this.userTaggedPost[1]);
+    if(tagged){
+      for (let index = 0; index < tagged.length; index++) {
+        const user = tagged[index];
+        this.userTaggedPost.push(this.authService.userIdsAndNames[user.userId])
+      }
+    }
+     
+    // console.log(this.userTaggedPost);
+    
   }
 
   parseJwt() {
@@ -96,6 +119,12 @@ export class PopupPostComponent implements OnInit {
 
   addLike(){
     event?.stopPropagation();
+    if(this.alreadyLiked){
+      this.numLikes--;
+    }
+    else{
+      this.numLikes++;
+    }
     this.alreadyLiked = !this.alreadyLiked;
     
   }

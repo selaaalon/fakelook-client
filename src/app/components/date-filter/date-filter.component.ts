@@ -21,6 +21,8 @@ export class DateFilterComponent implements OnInit {
     end: new FormControl(),
   });
 
+  today = new Date();
+
   formCheck :any  = '' 
 
   constructor() { }

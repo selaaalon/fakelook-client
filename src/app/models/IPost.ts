@@ -12,7 +12,7 @@ export interface IPost {
     z_Position : number,
     location? : { x: number; y: number; z: number };
     likes? : ILike[],
-    userTaggedPost? : number[],
+    userTaggedPost? : any[],
     tags? : ITag[],
     comments? : IComment[],
     date : Date,
