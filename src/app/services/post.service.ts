@@ -10,27 +10,10 @@ export class PostService {
 
   private postsUrl = "https://localhost:44349/Posts";
 
-  // createdNewPost = new Subject<IPost>();
   localPostsArray? :  Array<IPost>;
   postsSubject = new BehaviorSubject<IPost[]>([]);
 
   constructor(private http: HttpClient) { }
-
-  // getAllPosts(token : string): Observable<IPost[]> {
-  //   if(!this.localPostsArray){
-  //     let httpOptions = {
-  //       headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}),
-  //     };
-  //     return this.http.get<IPost[]>(this.postsUrl, httpOptions).pipe(tap(posts=>{
-  //       this.localPostsArray = posts;
-  //     }));
-  //   }
-  //   else{
-  //     console.log("tap");
-  //     console.log(this.localPostsArray);
-  //     return of(this.localPostsArray);
-  //   }
-  // }
 
   getAllPosts() : Observable<IPost[]> {
     if(!this.localPostsArray){ 
@@ -42,10 +25,7 @@ export class PostService {
           this.localPostsArray = res;
           this.postsSubject.next(res);
         });
-        // return this.postsSubject.asObservable();
     }
-    // return of(this.localPostsArray!);
-    // console.log(this.postsSubject.asObservable());
     return this.postsSubject.asObservable();
   }
 
@@ -93,9 +73,10 @@ export class PostService {
       this.localPostsArray = [];
       this.postsSubject.next(this.localPostsArray!);
       this.localPostsArray = temp;
-      //console.log(this.localPostsArray);
       this.postsSubject.next(this.localPostsArray!);
     })
     return this.postsSubject.asObservable();
   }
+
+  
 }

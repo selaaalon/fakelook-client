@@ -28,25 +28,13 @@ export class TimelineViewComponent implements OnInit, OnChanges {
     console.log(changes);
   }
 
-  // ngOnDestroy(){
-  //   this.postService.createdNewPost.unsubscribe();
-  // }
-
   ngOnInit(): void {
-
     this.getAllPosts();
-    console.log(this.authService.userIdsAndNames);
-    
-    // this.postService.createdNewPost.subscribe((item)=>{
-    //   this.postsArray.push(item);
-    //   this.sortArray();
-    // });
   }
 
 
   getAllPosts(){
     this.postService.getAllPosts().subscribe((posts)=>{
-      // this.postsArray = posts.sort((p1, p2)=>p1.date > p2.date ? -1 : 1);
       
       this.postsArray = [...posts];
       // console.log(this.postsArray);
@@ -58,11 +46,7 @@ export class TimelineViewComponent implements OnInit, OnChanges {
       console.log(error);
       this.router.navigate([""])
     });
-    // this.postsObs = this.postService.getAllPosts().pipe(tap(res=>{
-    //   console.log('in tap',res);
-    //   this.postsArray = [...res];
-    //     this.cd.detectChanges();
-    // }))
+
   }
 
   sortArray(){

@@ -89,7 +89,10 @@ export class SideBarComponent implements OnInit {
     this.minDateFilter = "minDate=" + min;
     date += this.minDateFilter;
     let endDate = this.formCheck.value.end;
-    if(endDate){
+    if(endDate > Date.now() || !endDate){
+      return date;
+    }
+    else if(endDate){
       let max = this.datepipe.transform(endDate, "yyyy-MM-dd");
       this.maxDateFilter = "&maxDate=" + max;
       date += this.maxDateFilter;

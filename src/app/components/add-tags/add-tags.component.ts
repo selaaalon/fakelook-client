@@ -91,11 +91,7 @@ export class AddTagsComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    // let value = event.option.viewValue;
-    // if(this.selectedTags.indexOf(value) == -1){
-    //   this.selectedTags.push(event.option.viewValue);
-    //   this.addTagsToPost(this.selectedTags);
-    // }
+
     this.selectedTags.push(event.option.viewValue);
     this.allTags = this.allTags.filter(t => t !== event.option.viewValue);
     this.addTagsToPost(this.selectedTags);

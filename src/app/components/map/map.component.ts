@@ -43,6 +43,7 @@ export class MapComponent implements OnInit {
     };
     
   }
+  
   entities$!: Observable<any>;
   selectedPost!: IPost;
   showDialog = false;
