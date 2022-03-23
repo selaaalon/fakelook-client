@@ -1,72 +1,70 @@
-<!-- <div > -->
-  <div class="dialog-container" (click)="close()">
-    <div class="display-center">
-      <div class="post-dialog">
-        <mat-card class="example-card">
+<div class="dialog-container" (click)="close()">
+  <div class="display-center">
+    <div class="post-dialog">
+      <mat-card class="example-card">
 
-          <app-edit-post [post]="post" (editEvent)="finishEdit()" *ngIf="edit"></app-edit-post>
+        <app-edit-post [post]="post" (editEvent)="finishEdit()" *ngIf="edit"></app-edit-post>
 
-          <div *ngIf="!edit">
-            <!-- <mat-card-header>
-            </mat-card-header> -->
-            <img mat-card-image src="{{ post.imageSorce }}" alt="{{post.description}}">
-            <div class="card-content">
-              <mat-card-content>
-                <div>
-                  {{post.description}}
-                  <span *ngFor="let tag of post.tags">
-                    #{{tag.content}} 
-                  </span>
-                  <!-- <span *ngFor="let user of post.userTaggedPost">
-                    @{{user.userName}} 
-                  </span> -->
-                  <!-- {{post.tags}} -->
-                </div>
-              </mat-card-content>
-              <mat-card-actions>
-                <!-- <div>
-                  
-                </div> -->
-                <button mat-button  (click)="addLike()"> 
-                  <ng-container *ngIf="!alreadyLiked">
-                    <i class="material-icons-outlined blue">thumb_up</i>
-                  </ng-container>
-    
-                  <ng-container *ngIf="alreadyLiked">
-                    <i class="material-icons blue">thumb_up</i>
-                  </ng-container>
-                </button>
-    
-    
-                <button mat-button color="primary" (click)="addComment()">Comment</button>
-    
-                <button *ngIf="editBtn" mat-button color="warn" (click)="editPost()">Edit</button>
-              </mat-card-actions>
-    
-              <div *ngIf="addCommentFlag" class="addComment">
-                <app-add-comment [postId]="post.id!" (addCommentEvent)="addItem($event)"></app-add-comment>
+        <div *ngIf="!edit">
+          <!-- <mat-card-header>
+          </mat-card-header> -->
+          <img mat-card-image src="{{ post.imageSorce }}" alt="{{post.description}}">
+          <div class="card-content">
+            <mat-card-content>
+              <div>
+                {{post.description}}
+                <span *ngFor="let tag of post.tags">
+                  #{{tag.content}} 
+                </span>
+                <!-- <span *ngFor="let user of post.userTaggedPost">
+                  @{{user.userName}} 
+                </span> -->
+                <!-- {{post.tags}} -->
               </div>
-              
-    
-              <ng-container *ngIf="!addCommentFlag && allComments.length > 0">
-                <div class="costum-scrollbar">
-                  <div *ngFor="let comment of allComments">
-                    <span>{{comment.user!.userName}} : {{comment.content}} </span>
-                    <span *ngFor="let tag of comment.tags">
-                      <span>#{{tag.content}} </span>
-                    </span>
-                    <!-- <span *ngFor="let user of comment.userTaggedComment">
-                      <span></span>
-                    </span> -->
-                  </div>
-                </div>
-              </ng-container>
-              
+            </mat-card-content>
+            <mat-card-actions>
+              <!-- <div>
+                
+              </div> -->
+              <button mat-button  (click)="addLike()"> 
+                <ng-container *ngIf="!alreadyLiked">
+                  <i class="material-icons-outlined blue">thumb_up</i>
+                </ng-container>
+  
+                <ng-container *ngIf="alreadyLiked">
+                  <i class="material-icons blue">thumb_up</i>
+                </ng-container>
+              </button>
+  
+  
+              <button mat-button color="primary" (click)="addComment()">Comment</button>
+  
+              <button *ngIf="editBtn" mat-button color="warn" (click)="editPost()">Edit</button>
+            </mat-card-actions>
+  
+            <div *ngIf="addCommentFlag" class="addComment">
+              <app-add-comment [postId]="post.id!" (addCommentEvent)="addItem($event)"></app-add-comment>
             </div>
+            
+  
+            <ng-container *ngIf="!addCommentFlag && allComments.length > 0">
+              <div class="costum-scrollbar">
+                <div *ngFor="let comment of allComments">
+                  <span>{{comment.user!.userName}} : {{comment.content}} </span>
+                  <span *ngFor="let tag of comment.tags">
+                    <span>#{{tag.content}} </span>
+                  </span>
+                  <!-- <span *ngFor="let user of comment.userTaggedComment">
+                    <span></span>
+                  </span> -->
+                </div>
+              </div>
+            </ng-container>
+            
           </div>
-          
-        </mat-card>
-      </div>
+        </div>
+        
+      </mat-card>
     </div>
   </div>
-<!-- </div> -->
+</div>

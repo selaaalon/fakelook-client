@@ -22,7 +22,7 @@
     align-items: center;
     text-align: center;
     background-color: aliceblue;
-    width: 35%;
+    width: auto;
     /* height: 80%; */
 }
 
@@ -70,6 +70,19 @@ button {
     align-items: center;
 }
 
+.blue{
+    color: #3F51B5;
+}
+
+.addComment{
+    height: max-content;
+}
+
+mat-card-actions{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
 /* .costum-scrollbar{
     display: flex;
     flex-direction: column;
@@ -98,10 +111,3 @@ button {
     background-color: #a8bbbf;
   } */
 
-.blue{
-    color: #3F51B5;
-}
-
-.addComment{
-    height: max-content;
-}

@@ -38,6 +38,13 @@ html, body {
     background-color: #a8bbbf;
   }
 
+  mat-form-field{
+    width: 90%;
+  }
+  .example-chip-list {
+    width: 90%;
+    height: 3%;
+}
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
